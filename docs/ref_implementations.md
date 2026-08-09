@@ -106,3 +106,27 @@ curl -sS https://ora.ai/api/ard/attestation/resend.com \
 ### MCP
 
 Ora is also reachable as an MCP server at `https://ora.ai/api/mcp` (streamable HTTP); its `discover_products`, `get_score`, and `search_capabilities` tools query the same index.
+
+## ardvark
+
+[ardvark](https://github.com/HelgeSverre/ardvark) is an MIT-licensed
+command-line crawler, validator, and indexer for ARD catalogs. It discovers
+catalogs through ARD web discovery mechanisms, validates them with the published
+JSON Schema and semantic checks, and stores discovered resources for local
+search and export. It also provides JSON output and a local stdio MCP server.
+
+### Install and verify
+
+```bash
+go install github.com/helgesverre/ardvark/cmd/ardvark@latest
+ardvark verify --strict https://ardvark.no/.well-known/ard.json
+```
+
+### Crawl and search
+
+```bash
+ardvark crawl https://example.com
+ardvark search "database agent" --verdict valid
+```
+
+See [ardvark.no](https://ardvark.no) for complete documentation.
