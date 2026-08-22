@@ -69,6 +69,7 @@ extra_css:
 # committed docs/spec.md if the repo isn't reachable.
 hooks:
   - hooks/spec_from_canonical.py
+  - hooks/context_from_canonical.py
 
 # Plugins
 # Empty list (not omitted) so MkDocs does NOT re-enable its default `search`
