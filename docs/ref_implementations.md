@@ -106,3 +106,46 @@ curl -sS https://ora.ai/api/ard/attestation/resend.com \
 ### MCP
 
 Ora is also reachable as an MCP server at `https://ora.ai/api/mcp` (streamable HTTP); its `discover_products`, `get_score`, and `search_capabilities` tools query the same index.
+
+## ANS Finder
+
+The [ANS Finder](https://github.com/agentnameservice/ans) is the discovery service of the open-source **Agent Name Service (ANS)** reference implementation — a registration authority, transparency log, and offline verifier in Go, based on the ANS IETF draft. The Finder tails the registry's lifecycle event feed, projects every ANS-registered agent into a search index, and serves the ARD Registry REST interface: `POST /v1/search` and `POST /v1/explore` (ARDS v0.9). What sets it apart is verifiable registration: every catalog entry's `trustManifest.attestations[]` carries an `ANS-Registration` attestation whose URI resolves to a SCITT COSE receipt on the ANS Transparency Log, so a client can cryptographically verify an agent's registration — independently of the Finder — before invoking it. It validates against this project's [conformance suite](https://github.com/ards-project/ard-spec/tree/main/conformance) (registry mode).
+
+ANS Finder is self-hosted: run the stack locally (or deploy your own) rather than querying a public endpoint.
+
+### Run the demo stack
+
+```bash
+git clone https://github.com/agentnameservice/ans && cd ans
+scripts/demo/start.sh    # builds + starts the registry :18080, transparency log :18081, finder :18082
+scripts/demo/register.sh --v2 translator.example.com    # register an MCP agent and drive it to ACTIVE
+```
+
+The Finder polls the registry's event feed (every 2s in the demo) and indexes the agent; a Swagger UI serves the Finder's ARD contract at `http://localhost:18082/docs`.
+
+### Search
+
+```bash
+curl -sS -X POST http://localhost:18082/v1/search \
+  -H 'content-type: application/json' \
+  -d '{"query":{"text":"translator"},"pageSize":5}' \
+  | jq '.results[] | {identifier, displayName, url, score}'
+```
+
+### Verify an entry against the Transparency Log
+
+Each result's `trustManifest.attestations[]` carries the SCITT receipt URI on the Transparency Log:
+
+```bash
+curl -sS -X POST http://localhost:18082/v1/search \
+  -H 'content-type: application/json' \
+  -d '{"query":{"text":"translator"},"pageSize":1}' \
+  | jq -r '.results[0].trustManifest.attestations[0].uri'
+```
+
+### Check conformance
+
+```bash
+git clone https://github.com/ards-project/ard-spec
+ard-spec/conformance/bin/conformance-test registry http://localhost:18082/v1
+```
