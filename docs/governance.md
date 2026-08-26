@@ -45,11 +45,10 @@ Anyone can contribute. Contribution is open to all, through issues and pull requ
 | Company | Representative |
 | :--- | :--- |
 | Cisco | *to be confirmed* |
-| Google | *to be confirmed* |
+| Google | Todd Segal |
 | Hugging Face | Shaun Smith |
 | Microsoft | *to be confirmed* |
-| Nvidia | *to be confirmed* |
-| Amazon | *to be confirmed* |
+| Amazon | Jeffrey Damick |
 
 **Maintainers**
 
@@ -65,7 +64,7 @@ Anyone can contribute. Contribution is open to all, through issues and pull requ
 
 ## Still to be decided
 
-The structure above is settled. The following are open and will be resolved as the bodies convene:
+The structure above is settled. The following are open, and will be decided by the Board and the Maintainers once they are seated:
 
 - Term lengths and rotation for both bodies.
 - How members at large are nominated and confirmed.
