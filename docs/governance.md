@@ -44,10 +44,9 @@ Anyone can contribute. Contribution is open to all, through issues and pull requ
 
 | Company | Representative |
 | :--- | :--- |
-| Cisco | *to be confirmed* |
 | Google | Todd Segal |
 | Hugging Face | Shaun Smith |
-| Microsoft | *to be confirmed* |
+| Microsoft | Dhruv Chand |
 | Amazon | Jeffrey Damick |
 
 **Maintainers**
@@ -58,7 +57,7 @@ Anyone can contribute. Contribution is open to all, through issues and pull requ
 | Nick Cooper | Member at large |
 | Junjie Bu | Google |
 | Shaun Smith | Hugging Face |
-| *to be confirmed* | Microsoft |
+| Dhruv Chand | Microsoft |
 
 ---
 
