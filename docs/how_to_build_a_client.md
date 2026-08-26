@@ -64,7 +64,7 @@ need — plus optional referrals:
 {
   "results": [
     {
-      "identifier": "urn:ai:acme.com:travel:concierge",
+      "identifier": "urn:air:acme.com:travel:concierge",
       "displayName": "Travel Concierge",
       "type": "application/mcp-server+json",
       "url": "https://api.acme.com/mcp/travel.json",
@@ -74,7 +74,7 @@ need — plus optional referrals:
   ],
   "referrals": [
     {
-      "identifier": "urn:ai:example.org:registry",
+      "identifier": "urn:air:example.org:registry",
       "type": "application/ai-registry",
       "url": "https://finder.example.org/search"
     }
@@ -91,7 +91,7 @@ rating — do that independently (Step 4).
 Before connecting to or invoking a discovered resource, verify the publisher:
 
 1. **Extract the domain** — parse the FQDN authority from the URN identifier
-   (`urn:ai:acme.com:travel:…` ➜ `acme.com`).
+   (`urn:air:acme.com:travel:…` ➜ `acme.com`).
 2. **Verify identity** — fetch the manifest and confirm the
    `trustManifest.identity` (e.g. a SPIFFE ID or `did:web`) is bound to that
    domain.

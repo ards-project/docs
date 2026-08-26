@@ -21,7 +21,7 @@ Traditional tool selection requires stuffing every available schema into the sys
 
 ## Do I need to register my agentic resources on a central directory?
 
-**No.** You have absolute publishing sovereignty. You host `ai-catalog.json` on your own domain (`yourdomain.com/.well-known/ai-catalog.json`) to advertise your agentic resources. Any compliant discovery service can find and index your endpoint organically, without requiring permission.
+**No.** You have absolute publishing sovereignty. You host `ard.json` on your own domain (`yourdomain.com/.well-known/ard.json`) to advertise your agentic resources. Any compliant discovery service can find and index your endpoint organically, without requiring permission.
 
 ---
 
@@ -35,7 +35,7 @@ Traditional tool selection requires stuffing every available schema into the sys
 
 The specification's role here is narrow and deliberate: it gives a publisher a **mechanism to assert verifiable claims**, and a registry or client a **standard way to check them**. ARD itself verifies nothing and vouches for no one. An entry can carry:
 
-- **Domain-anchored identity** — a mechanism to declare a publisher domain in the entry's URN (`urn:ai:acme.com:...`), so identity is rooted in DNS rather than a self-asserted label and can be checked by whoever consumes the entry.
+- **Domain-anchored identity** — a mechanism to declare a publisher domain in the entry's URN (`urn:air:acme.com:...`), so identity is rooted in DNS rather than a self-asserted label and can be checked by whoever consumes the entry.
 - **Verified publishers** — a mechanism for a publisher to *demonstrate* they are who they claim: a `trustManifest.identity` (e.g. `did:web`, SPIFFE, or an Agent Name Service (ANS) identity) that a registry or client cryptographically verifies against the publisher's domain. The protocol carries the claim; the registry or client performs the verification.
 - **Signed metadata** — a mechanism to attach a detached JWS `signature` over the trust manifest, so a client can confirm the record was not altered in transit or by an intermediary.
 - **Provenance** — a mechanism to declare lineage (`derivedFrom`, `publishedFrom`) that records where a resource came from.
@@ -73,8 +73,8 @@ Discovery is only as permissive as the registry you ask. Because **whoever runs 
 
 ARD also makes impersonation harder than the status quo, on several concrete fronts:
 
-- **Identity** is anchored to a publisher's domain (`urn:ai:google.com:...`), not a self-asserted label.
-- **Verified publishers**: a registry MUST verify that a manifest is actually hosted on — or cryptographically bound (via `did:web`/SPIFFE) to — the domain it claims, so a manifest on `untrusted.com` cannot pose as `urn:ai:google.com:...`.
+- **Identity** is anchored to a publisher's domain (`urn:air:google.com:...`), not a self-asserted label.
+- **Verified publishers**: a registry MUST verify that a manifest is actually hosted on — or cryptographically bound (via `did:web`/SPIFFE) to — the domain it claims, so a manifest on `untrusted.com` cannot pose as `urn:air:google.com:...`.
 - **Signed metadata** lets a client confirm a record was not altered in transit, and **provenance** lets it trace where a resource came from.
 
 Compared with today's ad hoc wiring — copy-pasted endpoints with no identity or provenance — ARD raises the floor by giving every result a verifiable origin. It does not, on its own, decide what is safe; it **communicates the identity, verification, and provenance signals** that let curated registries and clients refuse what is not.

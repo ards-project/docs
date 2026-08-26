@@ -47,13 +47,13 @@ Call search directly at `POST https://agentfinder.github.com/api/v1/search`. The
 ## Cisco AI Catalog
 
 The [AGNTCY Agent Directory](https://dir.agntcy.org) reference implementation of ARD is deployed by the Cisco [AI Catalog](https://ai-catalog.outshift.io).
-The catalog can be pulled from [`ai-catalog.outshift.io/.well-known/ai-catalog.json`](https://ai-catalog.outshift.io/.well-known/ai-catalog.json).
+The catalog can be pulled from [`ai-catalog.outshift.io/.well-known/ard.json`](https://ai-catalog.outshift.io/.well-known/ard.json).
 It supports secure verification through trust manifests, so clients can validate publisher identity and resource integrity before use.
 
 ### 1. Pull the catalog manifest
 
 ```bash
-curl -sS https://ai-catalog.outshift.io/.well-known/ai-catalog.json | jq '.specVersion, .host.displayName'
+curl -sS https://ai-catalog.outshift.io/.well-known/ard.json | jq '.entries | length'
 ```
 
 ### 2. Discover A2A cards
@@ -74,7 +74,7 @@ curl -sS 'https://ai-catalog.outshift.io/v1/agents?filter=type%3Dapplication%2Fm
 
 The [Ora Directory](https://ora.directory) is an ARD discovery service over products and services that agents use on behalf of users, run by [Ora](https://ora.ai). Ora scans each product for agent-readiness — static checks against its docs, llms.txt, registries, and public APIs, plus live agent runs that attempt to use it end to end — and serves the results over the ARD protocol, alongside the MCP servers, Skills, and OpenAPI specs detected on each product, plus payable x402/MPP HTTP endpoints with per-call pricing, indexed from the public Bazaar registry. Every product entry carries its agent-readiness scorecard as a signed trust attestation, so a client can weigh not only whether a resource matches the task, but whether it has been observed to work for agents.
 
-Ora's publisher manifest at [`ora.ai/.well-known/ai-catalog.json`](https://ora.ai/.well-known/ai-catalog.json) describes Ora's own resources and advertises the registry: its `application/ai-registry+json` entry points at `https://ora.ai/api/ard`, which serves a self-describing descriptor listing the endpoints. The index itself is queried through those endpoints.
+Ora's publisher manifest at [`ora.ai/.well-known/ard.json`](https://ora.ai/.well-known/ard.json) describes Ora's own resources and advertises the registry: its `application/ai-registry+json` entry points at `https://ora.ai/api/ard`, which serves a self-describing descriptor listing the endpoints. The index itself is queried through those endpoints.
 
 ### Search and browse
 
