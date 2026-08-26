@@ -10,7 +10,7 @@ Two bodies share the work. The **Oversight Board** decides *what* ARD should bec
 
 **Mandate.** Sets overall direction, scope, and priorities, and approves new major versions.
 
-**Composition.** Five to seven members, **at most one per company**. Each member is nominated by their company. Spots are held for key adoption-driving platform companies and for independent individuals.
+**Composition.** Four to seven members, **at most one per company**. Each member is nominated by their company. Spots are held for key adoption-driving platform companies and for independent individuals.
 
 **Eligibility.** A company must have a committed product or offering that implements or supports ARD — demonstrated commitment, not just interest.
 
