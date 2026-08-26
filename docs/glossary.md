@@ -12,11 +12,15 @@ A *product*: one discovery service built on ARD — [github.com/agentfinder](htt
 
 ### AI Catalog
 
-The base, artifact-agnostic manifest standard ARD builds on. A publisher hosts an `ai-catalog.json` file describing its agentic resources. See the [AI Catalog Standard](ai_catalog_spec.md).
+A separate manifest standard that predates ARD and shares much of its vocabulary. ARD defines its own [ARD entry](#ard-entry) and its own manifest at `ard.json`; the two are independent specifications.
 
 ### AI client
 
 An orchestrator, agent, or harness — a chatbot, IDE assistant, or automation — that discovers agentic resources through ARD and invokes the ones it selects over their native mechanisms. Also just *client*.
+
+### ARD entry
+
+The unit ARD is defined over: the description of a single agentic resource in a form that can be found by search. Every ARD entry is a well-formed catalog entry, but not every catalog entry is an ARD entry — an entry without [representative queries](#representative-queries) cannot be found by search.
 
 ### ARD (Agentic Resource Discovery)
 
@@ -26,9 +30,9 @@ The open protocol defined by this specification: how agentic resources describe 
 
 A verifiable claim attached to a catalog entry's `trustManifest` (e.g. SOC2, HIPAA, GDPR) that a registry or client can fetch and check.
 
-### Capability manifest
+### ARD manifest
 
-Another name for the `ai-catalog.json` file a publisher hosts to advertise its agentic resources.
+The document a publisher hosts at `https://<domain>/.well-known/ard.json` to advertise its agentic resources: a JSON document with an `entries` array of ARD entries.
 
 ### Catalog entry
 
@@ -52,7 +56,7 @@ The IANA media type in a catalog entry's `type` field, identifying what an artif
 
 ### Publisher
 
-Whoever hosts an `ai-catalog.json` describing one or more agentic resources, typically at `https://<domain>/.well-known/ai-catalog.json`.
+Whoever hosts an `ard.json` describing one or more agentic resources, typically at `https://<domain>/.well-known/ard.json`.
 
 ### Referral
 
@@ -76,8 +80,8 @@ Optional verifiable identity and trust metadata on a catalog entry (`trustManife
 
 ### URN identifier
 
-A catalog entry's domain-anchored logical identifier, `urn:ai:<publisher>:<namespace>:<agent-name>`, where `<publisher>` is a verifiable domain. It roots identity in DNS and stays stable as infrastructure changes.
+A catalog entry's domain-anchored logical identifier, `urn:air:<publisher>:<namespace>:<agent-name>`, where `<publisher>` is a verifiable domain. It roots identity in DNS and stays stable as infrastructure changes.
 
 ### Well-known URI
 
-The conventional manifest location, `https://<domain>/.well-known/ai-catalog.json`, where discovery services look for a publisher's catalog.
+The conventional manifest location, `https://<domain>/.well-known/ard.json`, where discovery services look for a publisher's entries.

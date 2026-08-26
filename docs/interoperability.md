@@ -11,7 +11,7 @@ ARD is designed as a **superset** of existing agent and tool discovery approache
 
 The ecosystem already has many **curated collections of agentic resources**: registries for MCP servers and A2A agents, plugin directories like [Open Plugins](https://open-plugins.com/), and platform tool catalogs from some partners. Each is a **centralized directory** — resources are submitted to it, it owns the canonical list, and clients query that one list. They're useful, but each is an island, with its own onboarding, governance, and reach.
 
-ARD inverts the relationship. Instead of publishing *into* each collection, a publisher describes a resource once on its own domain (`yourdomain.com/.well-known/ai-catalog.json`), and any discovery service can index it organically — no central gatekeeper, no per-collection re-registration. Discovery becomes a property of the open web, the way search engines crawl sites, rather than a list owned by one operator.
+ARD inverts the relationship. Instead of publishing *into* each collection, a publisher describes a resource once on its own domain (`yourdomain.com/.well-known/ard.json`), and any discovery service can index it organically — no central gatekeeper, no per-collection re-registration. Discovery becomes a property of the open web, the way search engines crawl sites, rather than a list owned by one operator.
 
 These collections don't disappear in this model — they become **ARD discovery services**. A registry, plugin directory, or tool catalog can index ARD entries from across the web, apply its own curation and trust policy, and expose the result; clients choose which to query, and they compose. So "ARD vs. a registry" is the wrong axis: ARD is the specification that lets *many* curated collections — public, vendor, and internal — index the same published resource without anyone having to choose just one.
 
@@ -44,4 +44,4 @@ In short: built-in tool search selects among known tools; ARD is the layer that 
 
 ## What about the ACP Agent Registry
 
-The list of ACP agents in [ACP's Agent Registry](https://agentclientprotocol.com/get-started/registry) is already structurally close to the AI Catalog specification. ACP registries can export their directory manifests as standard `ai-catalog.json` feeds, enabling instant web-scale discovery for editor-context agents — without those agents having to be re-registered anywhere.
+The list of ACP agents in [ACP's Agent Registry](https://agentclientprotocol.com/get-started/registry) is already structurally close to an ARD manifest. ACP registries can export their directory manifests as standard `ard.json` feeds, enabling instant web-scale discovery for editor-context agents — without those agents having to be re-registered anywhere.

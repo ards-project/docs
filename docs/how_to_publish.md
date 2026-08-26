@@ -6,17 +6,12 @@ This guide is about publishing on the public internet so that public discovery s
 
 ---
 
-## Step 1: Create the manifest (`ai-catalog.json`)
+## Step 1: Create the manifest (`ard.json`)
 
-Create a static `ai-catalog.json` manifest listing your agentic resources. Below is a copy-pasteable template:
+Create a static `ard.json` manifest listing your agentic resources. Below is a copy-pasteable template:
 
 ```json
 {
-  "specVersion": "1.0",
-  "host": {
-    "displayName": "Acme Dev Tools",
-    "identifier": "did:web:acme.com"
-  },
   "entries": [
     {
       "identifier": "urn:air:acme.com:server:weather",
@@ -43,7 +38,7 @@ Create a static `ai-catalog.json` manifest listing your agentic resources. Below
 
 Upload the manifest to your domain:
 ```text
-https://<your-domain>/.well-known/ai-catalog.json
+https://<your-domain>/.well-known/ard.json
 ```
 
 Ensure your web server serves it with:
@@ -60,7 +55,7 @@ If you cannot host at the standard `.well-known` path, publish a DNS `TXT` recor
 
 | Name / Host | Type | Value |
 | :--- | :--- | :--- |
-| `_catalog._agents.yourdomain.com` | `TXT` | `"url=https://custom-bucket.s3.amazonaws.com/ai-catalog.json"` |
+| `_catalog._agents.yourdomain.com` | `TXT` | `"url=https://custom-bucket.s3.amazonaws.com/ard.json"` |
 
 For dynamic discovery services (`POST /search`), publish an `SRV` record:
 

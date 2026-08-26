@@ -12,7 +12,7 @@ ARD sits entirely before invocation. It helps the client find the right resource
 
 ## What is an agentic resource?
 
-An agentic resource is any external capability an AI client can call on to do a task — an agent, MCP server, Skill, Canvas, Plugin, API, or workflow — anything that can be represented as an [AI Catalog entry](ai_catalog_spec.md).
+An agentic resource is any external capability an AI client can call on to do a task — an agent, MCP server, Skill, Canvas, Plugin, API, or workflow — anything that can be described as an [ARD entry](glossary.md#ard-entry).
 
 ## What ARD is not
 
