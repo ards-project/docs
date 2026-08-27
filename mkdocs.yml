@@ -69,6 +69,7 @@ extra_css:
 # committed docs/spec.md if the repo isn't reachable.
 hooks:
   - hooks/spec_from_canonical.py
+  - hooks/context_from_canonical.py
 
 # Plugins
 # Empty list (not omitted) so MkDocs does NOT re-enable its default `search`
@@ -83,6 +84,8 @@ plugins:
         why.md: how_ard_works.md
         # 'Connect Copilot' was split into separate GitHub / Microsoft pages.
         connect/copilot.md: connect/github-copilot.md
+        # 'AI Catalog Standard' removed: ARD defines its own entry and manifest.
+        ai_catalog_spec.md: interoperability.md
 
 # Navigation
 nav:
@@ -108,7 +111,6 @@ nav:
     - Reference Implementations: ref_implementations.md
   - Specifications:
     - ARD Specification: spec.md
-    - AI Catalog Standard: ai_catalog_spec.md
   - Give feedback: '/faq/#how-can-i-give-feedback'
 
 # Copyright

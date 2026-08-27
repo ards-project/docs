@@ -4,7 +4,7 @@ ARD in five steps — from describing a resource to using it from a chatbot.
 
 ## 1. Describe each resource
 
-Agentic resources come in many forms — tools, Skills, MCP servers, APIs, workflows, and agents. The **[AI Catalog](ai_catalog_spec.md)** standard gives you one extensible way to describe any of them: what it does, who provides it, where it lives, and how a client reaches it.
+Agentic resources come in many forms — tools, Skills, MCP servers, APIs, workflows, and agents. The **[ARD entry](glossary.md#ard-entry)** gives you one extensible way to describe any of them: what it does, who provides it, where it lives, and how a client reaches it.
 
 ## 2. Discovery is the hard part
 

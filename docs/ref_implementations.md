@@ -47,13 +47,13 @@ Call search directly at `POST https://agentfinder.github.com/api/v1/search`. The
 ## Cisco AI Catalog
 
 The [AGNTCY Agent Directory](https://dir.agntcy.org) reference implementation of ARD is deployed by the Cisco [AI Catalog](https://ai-catalog.outshift.io).
-The catalog can be pulled from [`ai-catalog.outshift.io/.well-known/ai-catalog.json`](https://ai-catalog.outshift.io/.well-known/ai-catalog.json).
+The catalog can be pulled from [`ai-catalog.outshift.io/.well-known/ard.json`](https://ai-catalog.outshift.io/.well-known/ard.json).
 It supports secure verification through trust manifests, so clients can validate publisher identity and resource integrity before use.
 
 ### 1. Pull the catalog manifest
 
 ```bash
-curl -sS https://ai-catalog.outshift.io/.well-known/ai-catalog.json | jq '.specVersion, .host.displayName'
+curl -sS https://ai-catalog.outshift.io/.well-known/ard.json | jq '.entries | length'
 ```
 
 ### 2. Discover A2A cards
@@ -74,7 +74,7 @@ curl -sS 'https://ai-catalog.outshift.io/v1/agents?filter=type%3Dapplication%2Fm
 
 The [Ora Directory](https://ora.directory) is an ARD discovery service over products and services that agents use on behalf of users, run by [Ora](https://ora.ai). Ora scans each product for agent-readiness — static checks against its docs, llms.txt, registries, and public APIs, plus live agent runs that attempt to use it end to end — and serves the results over the ARD protocol, alongside the MCP servers, Skills, and OpenAPI specs detected on each product, plus payable x402/MPP HTTP endpoints with per-call pricing, indexed from the public Bazaar registry. Every product entry carries its agent-readiness scorecard as a signed trust attestation, so a client can weigh not only whether a resource matches the task, but whether it has been observed to work for agents.
 
-Ora's publisher manifest at [`ora.ai/.well-known/ai-catalog.json`](https://ora.ai/.well-known/ai-catalog.json) describes Ora's own resources and advertises the registry: its `application/ai-registry+json` entry points at `https://ora.ai/api/ard`, which serves a self-describing descriptor listing the endpoints. The index itself is queried through those endpoints.
+Ora's publisher manifest at [`ora.ai/.well-known/ard.json`](https://ora.ai/.well-known/ard.json) describes Ora's own resources and advertises the registry: its `application/ai-registry+json` entry points at `https://ora.ai/api/ard`, which serves a self-describing descriptor listing the endpoints. The index itself is queried through those endpoints.
 
 ### Search and browse
 
@@ -107,6 +107,49 @@ curl -sS https://ora.ai/api/ard/attestation/resend.com \
 
 Ora is also reachable as an MCP server at `https://ora.ai/api/mcp` (streamable HTTP); its `discover_products`, `get_score`, and `search_capabilities` tools query the same index.
 
+## ANS Finder
+
+The [ANS Finder](https://github.com/agentnameservice/ans) is the discovery service of the open-source **Agent Name Service (ANS)** reference implementation — a registration authority, transparency log, and offline verifier in Go, based on the ANS IETF draft. The Finder tails the registry's lifecycle event feed, projects every ANS-registered agent into a search index, and serves the ARD Registry REST interface: `POST /v1/search` and `POST /v1/explore` (ARDS v0.9). What sets it apart is verifiable registration: every catalog entry's `trustManifest.attestations[]` carries an `ANS-Registration` attestation whose URI resolves to a SCITT COSE receipt on the ANS Transparency Log, so a client can cryptographically verify an agent's registration — independently of the Finder — before invoking it. It validates against this project's [conformance suite](https://github.com/ards-project/ard-spec/tree/main/conformance) (registry mode).
+
+ANS Finder is self-hosted: run the stack locally (or deploy your own) rather than querying a public endpoint.
+
+### Run the demo stack
+
+```bash
+git clone https://github.com/agentnameservice/ans && cd ans
+scripts/demo/start.sh    # builds + starts the registry :18080, transparency log :18081, finder :18082
+scripts/demo/register.sh --v2 translator.example.com    # register an MCP agent and drive it to ACTIVE
+```
+
+The Finder polls the registry's event feed (every 2s in the demo) and indexes the agent; a Swagger UI serves the Finder's ARD contract at `http://localhost:18082/docs`.
+
+### Search
+
+```bash
+curl -sS -X POST http://localhost:18082/v1/search \
+  -H 'content-type: application/json' \
+  -d '{"query":{"text":"translator"},"pageSize":5}' \
+  | jq '.results[] | {identifier, displayName, url, score}'
+```
+
+### Verify an entry against the Transparency Log
+
+Each result's `trustManifest.attestations[]` carries the SCITT receipt URI on the Transparency Log:
+
+```bash
+curl -sS -X POST http://localhost:18082/v1/search \
+  -H 'content-type: application/json' \
+  -d '{"query":{"text":"translator"},"pageSize":1}' \
+  | jq -r '.results[0].trustManifest.attestations[0].uri'
+```
+
+### Check conformance
+
+```bash
+git clone https://github.com/ards-project/ard-spec
+ard-spec/conformance/bin/conformance-test registry http://localhost:18082/v1
+```
+
 ## MCP Gateway Registry
 
 The [MCP Gateway Registry](https://github.com/agentic-community/mcp-gateway-registry) is an open-source (Apache-2.0), self-hostable implementation of ARD that covers both the Publisher and Registry roles, plus federation between registries. It indexes MCP servers, A2A agents, and skills, and serves them over the ARD contract. See [docs/ard.md](https://github.com/agentic-community/mcp-gateway-registry/blob/main/docs/ard.md) for the full description.
@@ -114,6 +157,8 @@ The [MCP Gateway Registry](https://github.com/agentic-community/mcp-gateway-regi
 ### Publisher: pull the catalog manifest
 
 The Publisher role renders a conformant, anonymous `/.well-known/ai-catalog.json` from the registry's records, listing only public and enabled assets. Each entry carries a domain-anchored URN (`urn:air:<publisher>:<namespace>:<name>`), the IANA media type for its kind, and an `https` `trustManifest`.
+
+Note that this implementation currently serves the pre-v0.91 `/.well-known/ai-catalog.json` path rather than `/.well-known/ard.json`; the examples below use the path a live instance answers on today, and `ard.json` support is pending upstream.
 
 ```bash
 # Against a self-hosted instance
