@@ -149,3 +149,39 @@ curl -sS -X POST http://localhost:18082/v1/search \
 git clone https://github.com/ards-project/ard-spec
 ard-spec/conformance/bin/conformance-test registry http://localhost:18082/v1
 ```
+
+## MCP Gateway Registry
+
+The [MCP Gateway Registry](https://github.com/agentic-community/mcp-gateway-registry) is an open-source (Apache-2.0), self-hostable implementation of ARD that covers both the Publisher and Registry roles, plus federation between registries. It indexes MCP servers, A2A agents, and skills, and serves them over the ARD contract. See [docs/ard.md](https://github.com/agentic-community/mcp-gateway-registry/blob/main/docs/ard.md) for the full description.
+
+### Publisher: pull the catalog manifest
+
+The Publisher role renders a conformant, anonymous `/.well-known/ai-catalog.json` from the registry's records, listing only public and enabled assets. Each entry carries a domain-anchored URN (`urn:air:<publisher>:<namespace>:<name>`), the IANA media type for its kind, and an `https` `trustManifest`.
+
+Note that this implementation currently serves the pre-v0.91 `/.well-known/ai-catalog.json` path rather than `/.well-known/ard.json`; the examples below use the path a live instance answers on today, and `ard.json` support is pending upstream.
+
+```bash
+# Against a self-hosted instance
+curl -sS https://your-registry.example.com/.well-known/ai-catalog.json \
+  | jq '.specVersion, .host.displayName'
+```
+
+### Registry: search & browse
+
+The Registry role exposes ARD's search/browse contract under `/api/ard`. Both endpoints are JWT-required and access-scoped: a caller only sees the assets it is authorized to access.
+
+```bash
+# Semantic search over the catalog
+curl -sS -X POST https://your-registry.example.com/api/ard/search \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "content-type: application/json" \
+  -d '{"query":{"text":"financial data tools","filter":{"type":["mcp_server"],"tags":["finance"]}},"pageSize":10}' \
+  | jq -r '.results[] | "\(.displayName)\t\(.score)"'
+
+# Browse all asset types (MCP servers + A2A agents + skills)
+curl -sS -X GET "https://your-registry.example.com/api/ard/agents?orderBy=identifier" \
+  -H "Authorization: Bearer $TOKEN" \
+  | jq -r '.items[].displayName'
+```
+
+Results are ARD `catalogEntry`s plus a `score` (integer 0–100) and `source`. Errors use the ARD `{errorCode, message}` envelope. Federation ingests other registries' `ai-catalog.json` catalogs into a unified local index, selectable per request via the `federation` parameter (`none` / `auto` / `referrals`).
