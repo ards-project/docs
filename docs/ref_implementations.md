@@ -109,9 +109,11 @@ Ora is also reachable as an MCP server at `https://ora.ai/api/mcp` (streamable H
 
 ## Desvela ARD Registry
 
-The [Desvela ARD Registry](https://registry.desvela.dev) is a neutral registry over the open web, not tied to a single vendor ecosystem. Instead of indexing a platform's own resources, it crawls the Tranco top-100K for the surfaces a visiting agent can actually read — `/.well-known/ai-catalog.json`, `/llms.txt`, `/agents.md`, and the AI-bot directives in `/robots.txt` — refreshed weekly, so it surfaces publishers outside any single ecosystem. The crawl methodology and monthly findings are public at [desvela.ai/census](https://desvela.ai/census/).
+The [Desvela ARD Registry](https://registry.desvela.dev) is a neutral registry over the open web, not tied to a single vendor ecosystem. Instead of indexing a platform's own resources, it crawls the Tranco top-100K for the surfaces a visiting agent can actually read — `/.well-known/ard.json`, its predecessor `/.well-known/ai-catalog.json`, `/llms.txt`, `/agents.md`, `/.well-known/agent-card.json`, `/.well-known/mcp.json`, and the AI-bot directives in `/robots.txt` — refreshed weekly, so it surfaces publishers outside any single ecosystem. The crawl methodology and monthly findings are public at [desvela.ai/census](https://desvela.ai/census/).
 
-Desvela's own manifest at [`desvela.dev/.well-known/ai-catalog.json`](https://desvela.dev/.well-known/ai-catalog.json) describes its resources, including the registry itself.
+Desvela's own manifest at [`desvela.dev/.well-known/ard.json`](https://desvela.dev/.well-known/ard.json) describes its resources, including the registry itself, and the site emits `<link rel="ard">`.
+
+Both manifest paths are crawled and counted separately rather than one replacing the other. The census is a month-over-month series, and swapping the column when the spec moved its canonical path would have shown a collapse in ARD adoption that belonged to the instrument, not to the web — the count of publishers is still small enough for that to matter. Each surface carries the date it entered the census, so a zero before that date reads as *not measured* rather than *nobody published*.
 
 ### Search and explore
 
