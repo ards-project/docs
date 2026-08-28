@@ -1,0 +1,2855 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A protocol for discovering agentic resources — tools, Skills, MCP servers, APIs, workflows, and agents — for AI clients">
+      
+      
+      
+        <link rel="canonical" href="https://agenticresourcediscovery.org/spec/">
+      
+      
+        <link rel="prev" href="../ref_implementations/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>ARD Specification - AgenticResourceDiscovery.org</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Outfit:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Outfit";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/custom.css">
+    
+      <link rel="stylesheet" href="../stylesheets/homepage.css">
+    
+      <link rel="stylesheet" href="../stylesheets/nav.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#agentic-resource-discovery-specification" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      <!-- Determine classes -->
+
+
+  
+
+
+<!-- Header -->
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+
+    <!-- Link to home (logo) -->
+    <a href=".." title="AgenticResourceDiscovery.org" class="md-header__button md-logo" aria-label="AgenticResourceDiscovery.org" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+
+    <!-- Header title with clickable site name -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            <a href=".." style="color: inherit; text-decoration: none;">
+              AgenticResourceDiscovery.org
+            </a>
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ARD Specification
+            
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color palette toggle -->
+    
+      
+    
+
+    <!-- Site language selector -->
+    
+
+    <!-- Button to open search modal -->
+    
+
+    <!-- Repository information -->
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="AgenticResourceDiscovery.org" class="md-nav__button md-logo" aria-label="AgenticResourceDiscovery.org" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AgenticResourceDiscovery.org
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../get_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how_ard_works/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How ARD works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interoperability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interoperability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connect a chatbot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Connect a chatbot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connect/claude/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connect/chatgpt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ChatGPT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connect/github-copilot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GitHub Copilot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connect/microsoft-copilot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft Copilot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connect/gemini/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gemini
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how_to_publish/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to publish
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how_to_build_a_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to add ARD support to your agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ref_implementations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference Implementations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specifications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Specifications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ARD Specification
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ARD Specification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Motivation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-core-design-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Core Design Principles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Core Design Principles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-search-first-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Search-First Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-scalability-beyond-context-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Scalability Beyond Context Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-artifact-agnostic-envelope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Artifact-Agnostic Envelope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-json-ld-entries-and-namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 JSON-LD Entries and Namespaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-universal-baseline-for-federation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Universal Baseline for Federation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-separation-of-concerns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.6 Separation of Concerns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-ard-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The ARD Entry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. The ARD Entry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-an-ard-entry-is-a-json-ld-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 An ARD Entry Is a JSON-LD Node
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-entry-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Entry Terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-value-or-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Value or Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-identity-and-trust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Identity and Trust
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.5 Identity and Trust">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#451-publisher-authority-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5.1 Publisher Authority Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#452-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5.2 Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Discovery
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Discovery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-discovery-mechanisms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Discovery Mechanisms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-ingestion-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Ingestion Pipelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-the-search-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 The Search API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 The Search API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531-the-query-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.1 The Query Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532-search-post-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.2 Search (POST /search)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3.2 Search (POST /search)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5321-query-processing-and-resolution-informative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.2.1 Query Processing and Resolution (Informative)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#533-explore-post-explore-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.3 Explore (POST /explore) — Optional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#534-list-get-agents-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.4 List (GET /agents) — Optional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#535-protocol-wrappers-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.5 Protocol Wrappers (Optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-federation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Federation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4 Federation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-referrals-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Referrals Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-integration-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Integration Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-a-filter-expression-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix A: Filter Expression Syntax
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-b-standard-error-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix B: Standard Error Codes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-c:-agent-naming-urn-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix C: Agent Naming URN Format
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-d-formal-schema-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix D: Formal Schema Definitions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix D: Formal Schema Definitions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#d1-the-ard-entry-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D.1 The ARD Entry Schema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d2-ard-discovery-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D.2 ARD Discovery Constraints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d3-the-registry-rest-api-specification-openapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D.3 The Registry REST API Specification (OpenAPI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d4-official-conformance-testing-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D.4 Official Conformance Testing Tool
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="D.4 Official Conformance Testing Tool">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acknowledgements
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/faq/#how-can-i-give-feedback" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Give feedback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Motivation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-core-design-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Core Design Principles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Core Design Principles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-search-first-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Search-First Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-scalability-beyond-context-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Scalability Beyond Context Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-artifact-agnostic-envelope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Artifact-Agnostic Envelope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-json-ld-entries-and-namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 JSON-LD Entries and Namespaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-universal-baseline-for-federation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Universal Baseline for Federation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-separation-of-concerns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.6 Separation of Concerns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-ard-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The ARD Entry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. The ARD Entry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-an-ard-entry-is-a-json-ld-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 An ARD Entry Is a JSON-LD Node
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-entry-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Entry Terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-value-or-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Value or Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-identity-and-trust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Identity and Trust
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.5 Identity and Trust">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#451-publisher-authority-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5.1 Publisher Authority Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#452-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5.2 Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Discovery
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Discovery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-discovery-mechanisms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Discovery Mechanisms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-ingestion-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Ingestion Pipelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-the-search-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 The Search API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 The Search API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531-the-query-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.1 The Query Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532-search-post-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.2 Search (POST /search)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3.2 Search (POST /search)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5321-query-processing-and-resolution-informative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.2.1 Query Processing and Resolution (Informative)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#533-explore-post-explore-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.3 Explore (POST /explore) — Optional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#534-list-get-agents-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.4 List (GET /agents) — Optional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#535-protocol-wrappers-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.5 Protocol Wrappers (Optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-federation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Federation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4 Federation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-referrals-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Referrals Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-integration-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Integration Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-a-filter-expression-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix A: Filter Expression Syntax
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-b-standard-error-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix B: Standard Error Codes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-c:-agent-naming-urn-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix C: Agent Naming URN Format
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-d-formal-schema-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix D: Formal Schema Definitions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix D: Formal Schema Definitions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#d1-the-ard-entry-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D.1 The ARD Entry Schema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d2-ard-discovery-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D.2 ARD Discovery Constraints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d3-the-registry-rest-api-specification-openapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D.3 The Registry REST API Specification (OpenAPI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d4-official-conformance-testing-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D.4 Official Conformance Testing Tool
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="D.4 Official Conformance Testing Tool">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acknowledgements
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href=".." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="agentic-resource-discovery-specification">Agentic Resource Discovery Specification<a class="headerlink" href="#agentic-resource-discovery-specification" title="Permanent link">&para;</a></h1>
+<p><strong>Federated Discovery and Search for Agentic Resources</strong></p>
+<p><strong>Version</strong>: v0.91
+<strong>Status</strong>: Proposal
+<strong>Date</strong>: August 26, 2026</p>
+<p><strong>Authors</strong>:</p>
+<ul>
+<li>Junjie Bu — Google</li>
+<li>R.V.Guha — Microsoft</li>
+<li>Shaun Smith — Hugging Face</li>
+</ul>
+<h2 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
+<p>LLMs increasingly rely on external capabilities — MCP tools, A2A agents, skills, and other callable services — to extend their functionality. In this document, we refer to these generically as agentic resources.</p>
+<p>The <strong>Agentic Resource Discovery Specification (ARD)</strong> defines how agentic resources are described, discovered, and searched across federated networks.</p>
+<p>This version (v0.91) restates the description layer in terms of JSON-LD and namespaces. An entry is a JSON-LD node whose terms come from a default namespace unless it declares otherwise. This is a repositioning, not a redefinition: existing manifests remain valid entries unchanged. What it adds is a <code>@context</code> seam, so an entry MAY draw terms from additional namespaces, and those terms become available to discovery without any change to this specification. Which namespaces beyond the default are recognized is left open and expected to grow over time; that evolution does not affect entries written today.</p>
+<h2 id="2-motivation">2. Motivation<a class="headerlink" href="#2-motivation" title="Permanent link">&para;</a></h2>
+<p>The prevailing model requires users or developers to explicitly "install" or hardcode each agent before use. As the ecosystem scales to thousands or millions of agents, we need a model where LLMs can discover and invoke agents dynamically, similar to how search engines discover web pages.</p>
+<p>Agent descriptions tend to be generic, and most LLMs currently select tools by including all descriptions in the context window — which does not scale. ARD addresses this by moving discovery outside the LLM into a dedicated search service, where richer signals (representative queries, publisher identity, compliance metadata, usage patterns) can be leveraged without consuming context window tokens.</p>
+<p>Grounding the description layer in JSON-LD extends the same reasoning. A resource is described once, on its own domain; a discovery service indexes the terms it recognizes and preserves the rest; and a publisher can enrich an entry with domain-specific vocabulary without waiting for a revision of this specification.</p>
+<h2 id="3-core-design-principles">3. Core Design Principles<a class="headerlink" href="#3-core-design-principles" title="Permanent link">&para;</a></h2>
+<p>ARD is guided by the following core design principles to ensure scalability, interoperability, and ease of adoption:</p>
+<h3 id="31-search-first-discovery">3.1 Search-First Discovery<a class="headerlink" href="#31-search-first-discovery" title="Permanent link">&para;</a></h3>
+<p>Rather than requiring users or systems to pre-install agents (analogous to the mobile app store paradigm), ARD promotes a model where agents are discovered dynamically through search. Registries maintain a shared, continuously updated index, making capabilities discoverable the moment they are published.</p>
+<h3 id="32-scalability-beyond-context-windows">3.2 Scalability Beyond Context Windows<a class="headerlink" href="#32-scalability-beyond-context-windows" title="Permanent link">&para;</a></h3>
+<p>Traditional tool selection relies on injecting all descriptions into the LLM's context window, which does not scale. ARD moves the selection problem outside the LLM into a dedicated search service, leveraging information retrieval techniques to scale to thousands or millions of capabilities without consuming context window tokens.</p>
+<h3 id="33-artifact-agnostic-envelope">3.3 Artifact-Agnostic Envelope<a class="headerlink" href="#33-artifact-agnostic-envelope" title="Permanent link">&para;</a></h3>
+<p>The specification does not define or constrain the internal schema of specific agent types (MCP, A2A, etc.). Instead, it acts as a clean envelope that uses a <code>type</code> term (formatted as an IANA Media Type) to identify what an artifact is, delegating the definition of artifact-specific metadata to the respective protocol specifications.</p>
+<blockquote>
+<p><strong>[!NOTE] IANA Registration Status</strong>: The types <code>application/a2a-agent-card+json</code> and <code>application/mcp-server-card+json</code> used in this specification are de-facto community standards tracking towards formal registration. Implementers should note that while well-known path directories (like <code>/.well-known/agent-card.json</code>) are officially registered permanent entries, full type registrations are pending working group joint submission and the format may change. In the meantime, omit strict verification of these types by intermediaries.</p>
+</blockquote>
+<h3 id="34-json-ld-entries-and-namespaces">3.4 JSON-LD Entries and Namespaces<a class="headerlink" href="#34-json-ld-entries-and-namespaces" title="Permanent link">&para;</a></h3>
+<p>An entry is a JSON-LD node. Terms written plainly, without a prefix, belong to the default namespace — the same terms a manifest uses today, interpreted the same way. Through the entry's <code>@context</code>, a publisher MAY additionally draw terms from other namespaces to describe the resource. A consumer processes the terms it recognizes and preserves the others (§5.3.1). This keeps a single entry model while making the vocabulary open at the edges rather than closed.</p>
+<h3 id="35-universal-baseline-for-federation">3.5 Universal Baseline for Federation<a class="headerlink" href="#35-universal-baseline-for-federation" title="Permanent link">&para;</a></h3>
+<p>To guarantee that any system can participate in discovery regardless of its execution stack, an Agent Registry <strong>MUST</strong> expose a standard HTTP REST search interface. While specialized protocols may be used for execution, discovery requires a universal baseline that any HTTP client can access.</p>
+<h3 id="36-separation-of-concerns">3.6 Separation of Concerns<a class="headerlink" href="#36-separation-of-concerns" title="Permanent link">&para;</a></h3>
+<p>To maintain a clean and implementable standard, the protocol delegates operational details:</p>
+<ul>
+<li><strong>Authentication is Delegated</strong>: Agent authentication is handled by the specific artifact protocol, not the discovery layer.</li>
+<li><strong>Distribution is Infrastructure</strong>: Mechanisms for physical delivery (OCI, npm, etc.) are left to backend implementation and are not part of the discovery record.</li>
+</ul>
+<h2 id="4-the-ard-entry">4. The ARD Entry<a class="headerlink" href="#4-the-ard-entry" title="Permanent link">&para;</a></h2>
+<p>The unit ARD describes, indexes, and returns is the <strong>ARD entry</strong> — the description of a single agentic resource in a form that can be found by search. ARD is defined over ARD entries; the container an entry travels in (a hosted manifest, a web page, an API response) is a transport concern, addressed in §5.</p>
+<p><strong>This specification defines the ARD entry.</strong> An ARD entry is not the same object as a catalog entry, and the two should not be conflated. A catalog entry is a publisher's listing of a resource: its obligation is to accommodate whatever the publisher wishes to describe, so it commits to as little as possible. An ARD entry is a description carrying the signals a search service requires in order to make resources comparable across publishers who have never coordinated: its obligation is to guarantee that those signals are present and uniformly addressable.</p>
+<p>The two are related but distinct. ARD adopts the core terms of the default namespace (§4.2) and layers on the terms discovery depends on — chiefly <code>representativeQueries</code>, which an ARD entry is expected to carry. It follows that <strong>every ARD entry is a well-formed catalog entry, but not every catalog entry is an ARD entry</strong> — a listing that omits the discovery terms remains a perfectly valid catalog entry and is simply not discoverable through ARD. ARD keeps this expectation soft at the schema level: a missing or under-populated <code>representativeQueries</code> is flagged by conformance tooling as a warning, not a hard validation failure, so entries emitted by existing tooling still validate (§4.2).</p>
+<p>Because the definitions are separate, each specification's conformance is self-contained: a change to what a catalog entry requires does not change what an ARD entry requires, and vice versa.</p>
+<p>Within this specification, "entry" means "ARD entry" unless stated otherwise.</p>
+<h3 id="41-an-ard-entry-is-a-json-ld-node">4.1 An ARD Entry Is a JSON-LD Node<a class="headerlink" href="#41-an-ard-entry-is-a-json-ld-node" title="Permanent link">&para;</a></h3>
+<p>An entry is a JSON-LD node describing an agentic resource. Its terms acquire meaning through the <strong>ARD base context</strong>, published at <code>https://agenticresourcediscovery.org/context/v1</code>, which maps the core terms to IRIs under the default namespace (<code>https://agenticresourcediscovery.org/ns#</code>).</p>
+<p>A conforming consumer MUST expand an entry with the ARD base context as the initial expansion context (the JSON-LD <code>expandContext</code> option). An entry's own <code>@context</code>, when present, is applied after the base context: it MAY add or override namespaces but does not remove the base. Under this rule the core terms resolve to their IRIs and namespaced terms (e.g. <code>okf:taxonomy</code>) resolve through the prefixes the entry declares.</p>
+<p>Carrying <code>@context</code> in the entry itself is OPTIONAL. An entry that omits it — including every entry published against the predecessor format — is interpreted by any consumer that applies the base context, and needs no changes. An entry SHOULD include <code>"@context": "https://agenticresourcediscovery.org/context/v1"</code> (optionally as the first element of an array whose later elements add local namespaces) when it may be read by generic JSON-LD tooling that has not been told to apply the base context — most importantly when embedded as in-page markup. The consequence is deliberate: an entry with no <code>@context</code> is interpretable only by a consumer that knows it is an ARD entry and applies the base context. That is the trade for terse authoring and backward compatibility.</p>
+<h3 id="42-entry-terms">4.2 Entry Terms<a class="headerlink" href="#42-entry-terms" title="Permanent link">&para;</a></h3>
+<p>The default namespace supplies definitions for the terms below; ARD determines which of them an entry is required to carry. An ARD entry MUST carry:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Term</th>
+<th style="text-align: left;">Requirement</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">identifier</td>
+<td style="text-align: left;">MUST</td>
+<td style="text-align: left;">Globally unique discovery handle. Domain-anchored URN form (<code>urn:air:&lt;publisher&gt;:&lt;namespace&gt;:&lt;agent-name&gt;</code>); see Appendix C. The JSON-LD <code>@id</code> MAY mirror it.</td>
+</tr>
+<tr>
+<td style="text-align: left;">displayName</td>
+<td style="text-align: left;">MUST</td>
+<td style="text-align: left;">Human-readable name.</td>
+</tr>
+<tr>
+<td style="text-align: left;">type</td>
+<td style="text-align: left;">MUST</td>
+<td style="text-align: left;">Artifact type as an IANA Media Type (§3.3).</td>
+</tr>
+<tr>
+<td style="text-align: left;">url <em>or</em> data</td>
+<td style="text-align: left;">MUST (exactly one)</td>
+<td style="text-align: left;">Value-or-reference (§4.3).</td>
+</tr>
+</tbody>
+</table>
+<p>An ARD entry SHOULD additionally carry <code>representativeQueries</code>, and <code>capabilities</code> is recommended where it applies; these are the discovery signals, so they are described in full here rather than by reference.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Term</th>
+<th style="text-align: left;">Requirement</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">representativeQueries</td>
+<td style="text-align: left;">SHOULD</td>
+<td style="text-align: left;">Sample natural-language queries a user might issue that this resource can serve — the signal a registry builds its semantic index from. An entry without it cannot be found by search, which is what distinguishes an ARD entry from a bare catalog entry. SHOULD contain 2–5 examples. It is not hard-required: the schema does not reject an entry that omits it or supplies a different count — the conformance tester flags those as warnings (§D.2), so output from existing tooling still validates.</td>
+</tr>
+<tr>
+<td style="text-align: left;">capabilities</td>
+<td style="text-align: left;">MAY</td>
+<td style="text-align: left;">Short skill or tool tokens (e.g. <code>["WeatherTool"]</code>) enabling fast structured filtering without fetching the full artifact.</td>
+</tr>
+</tbody>
+</table>
+<p>The remaining terms are optional and descriptive.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Term</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">description, tags, version, updatedAt, metadata, trustManifest</td>
+<td style="text-align: left;">Descriptive terms. <code>trustManifest</code> is discussed in §4.5; ARD does not constrain its internal schema beyond <code>identity</code>, but registries are expected to inspect and verify it.</td>
+</tr>
+</tbody>
+</table>
+<p>Terms from any additional namespace declared in the entry's <code>@context</code> MAY also appear and become available as filter dimensions (§5.3.1) with no change to this specification.</p>
+<h3 id="43-value-or-reference">4.3 Value or Reference<a class="headerlink" href="#43-value-or-reference" title="Permanent link">&para;</a></h3>
+<p>An entry's artifact content is delivered by exactly one of two mutually exclusive terms — <code>url</code> (a reference to the artifact document) or <code>data</code> (the document inline). An entry MUST NOT carry both.</p>
+<h3 id="44-examples">4.4 Examples<a class="headerlink" href="#44-examples" title="Permanent link">&para;</a></h3>
+<p>A plain entry — no <code>@context</code>, so its terms resolve to the default namespace:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"urn:air:acme.com:server:weather"</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Weather Data Node"</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/mcp-server-card+json"</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.acme.com/mcp/weather.json"</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">"capabilities"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"WeatherTool"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ForecastTool"</span><span class="p">],</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Enterprise weather MCP server for live telemetry."</span><span class="p">,</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="nt">"representativeQueries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="s2">"what is the current wind speed in Chicago"</span><span class="p">,</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="s2">"get the 5-day forecast for Seattle"</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="p">]</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>The same entry enriched with terms from an additional namespace via <code>@context</code>. Unprefixed terms remain in the default namespace; the prefixed terms (here, a publisher's own extension namespace) become filter dimensions:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">"acme"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://acme.com/vocab#"</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"urn:air:acme.com:server:weather"</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Weather Data Node"</span><span class="p">,</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/mcp-server-card+json"</span><span class="p">,</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.acme.com/mcp/weather.json"</span><span class="p">,</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="nt">"capabilities"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"WeatherTool"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ForecastTool"</span><span class="p">],</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Enterprise weather MCP server for live telemetry."</span><span class="p">,</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="nt">"representativeQueries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="s2">"what is the current wind speed in Chicago"</span><span class="p">,</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="s2">"get the 5-day forecast for Seattle"</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">  </span><span class="p">],</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">  </span><span class="nt">"acme:serviceTier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enterprise"</span><span class="p">,</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">  </span><span class="nt">"acme:region"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"us-east"</span><span class="p">,</span><span class="w"> </span><span class="s2">"eu-west"</span><span class="p">]</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>A skill entry from a solo developer, no trust ceremony required:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"urn:air:github.com:alice-dev:pptx-creator"</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pptx-creator"</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/ai-skill+md"</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/alice-dev/pptx-creator"</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Create professional PowerPoint presentations following brand guidelines."</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="nt">"representativeQueries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="s2">"turn these bullet points into a branded slide deck"</span><span class="p">,</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="s2">"make a PowerPoint from this outline"</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">  </span><span class="p">]</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="45-identity-and-trust">4.5 Identity and Trust<a class="headerlink" href="#45-identity-and-trust" title="Permanent link">&para;</a></h3>
+<p>Identity binding, compliance attestations, provenance, and cryptographic signatures are carried in the optional <code>trustManifest</code> term. This keeps the entry lightweight for simple use cases while providing a robust hook for enterprise compliance, separate from the artifact's native operational metadata. ARD requires only <code>trustManifest.identity</code>, for the binding rule in §4.5.1, and does not constrain the envelope's internal schema, so a trust manifest defined by any framework — SPIFFE, a DID method, an enterprise PKI — is structurally valid. This is agnosticism about the framework, not indifference to trust: a federated registry is expected to inspect the trust manifest and verify it according to the framework it declares (§4.5.2). Its attestations, provenance, and signature are inputs to verification and to trust-aware filtering and ranking — not a black box to be passed through unread.</p>
+<h4 id="451-publisher-authority-binding">4.5.1 Publisher Authority Binding<a class="headerlink" href="#451-publisher-authority-binding" title="Permanent link">&para;</a></h4>
+<p>The cryptographic trust domain asserted in <code>trustManifest.identity</code> MUST align with the <code>&lt;publisher&gt;</code> domain embedded in the entry's discovery identifier (Appendix C). This is ARD's defense against namespace squatting: an entry claiming <code>urn:air:google.com:...</code> is rejected by a verifying registry unless it can produce a verifiable attestation issued by <code>google.com</code>. The discovery identifier and the security principal are otherwise decoupled — the former is a stable searchable handle, the latter a dynamic cryptographic credential.</p>
+<h4 id="452-verification">4.5.2 Verification<a class="headerlink" href="#452-verification" title="Permanent link">&para;</a></h4>
+<p>ARD does not define a signing or verification procedure of its own. The signed payload, its canonicalization, signature processing, and key resolution are defined by the trust framework the manifest declares in <code>trustManifest.trustSchema</code> (through its <code>governanceUri</code> and <code>verificationMethods</code>). ARD mandates only the publisher-authority binding of §4.5.1; two implementations verifying the same manifest defer to the same declared framework. A future ARD profile MAY pin a concrete default scheme, but this specification does not. A federated registry SHOULD run the verification its declared framework specifies and MAY use the outcome in filtering, ranking, and admission decisions; a registry that passes an unverified trust manifest through untouched forfeits the trust the federation depends on.</p>
+<p>A relevance score returned by Search (§5.3.2) reflects semantic relevance only and MUST NOT be interpreted as a trust, compliance, or safety judgment; trust evaluation is fully decoupled.</p>
+<h2 id="5-discovery">5. Discovery<a class="headerlink" href="#5-discovery" title="Permanent link">&para;</a></h2>
+<p>Discovery is what ARD is fundamentally about, and it spans this entire section: how entries are published and ingested (§5.1–5.2), how a client searches the resulting index (the search API, §5.3), and how registries compose across a federation (§5.4). It operates in two layers:</p>
+<ol>
+<li><strong>Static Discovery</strong>: A decentralized publishing mechanism where developers and enterprises publish entries as static documents or in-page markup.</li>
+<li><strong>Dynamic Discovery</strong>: Active, searchable services (Registries) that index published entries and expose the dynamic search API.</li>
+</ol>
+<h3 id="51-discovery-mechanisms">5.1 Discovery Mechanisms<a class="headerlink" href="#51-discovery-mechanisms" title="Permanent link">&para;</a></h3>
+<p>Publishers advertise entries via the following mechanisms. Each points a consumer at a source of entries; the entries themselves follow §4 regardless of how they are found.</p>
+<ul>
+<li><strong>Well-Known URI</strong>: Hosting a manifest of entries at <code>https://{domain}/.well-known/ard.json</code>. The manifest is a JSON document with an <code>entries</code> array of ARD entries (§4); any other top-level members are transport-defined and ignored by ARD. Its shape is given by the <code>ardManifest</code> definition in the entry schema (Appendix D).</li>
+<li><strong>In-page markup</strong>: Embedding entry JSON-LD in a web page describing the resource, discoverable by ordinary web crawling.</li>
+<li><strong>Agentmap Directive</strong>: Adding an entry-source directive in <code>robots.txt</code> (e.g. <code>Agentmap: https://example.com/entries.json</code>).</li>
+<li><strong>HTML Link Tag</strong>: Including <code>&lt;link rel="ard" href="..."&gt;</code> in the <code>&lt;head&gt;</code> of a document.</li>
+<li><strong>DNS</strong>: Publishing Service Binding records that point to either a static entry source (e.g. <code>_entries._agents.example.com</code>) or a dynamic Agent Registry search endpoint (e.g. <code>_search._agents.example.com</code>).</li>
+</ul>
+<p><strong>Consumer resolution (normative).</strong> A consumer resolving a domain's entries MUST fetch <code>/.well-known/ard.json</code>, and MUST honour a <code>rel="ard"</code> link. ARD's predecessor specified the path <code>/.well-known/ai-catalog.json</code> and the link relation <code>ai-catalog</code>; a consumer MAY additionally consult these, and a consumer that does treats them as equivalent entry sources. Consulting the predecessor names is a courtesy to resources published before this revision, not a conformance requirement: a consumer that resolves only <code>ard.json</code> and <code>rel="ard"</code> is fully conformant.</p>
+<p><strong>Publishing (informative).</strong> Publishers publish entries at <code>/.well-known/ard.json</code> and emit <code>rel="ard"</code>. There is no need to serve the predecessor path or relation as well; ARD defines one path, and a publisher serving it is discoverable by every conformant consumer. A resource that remains only at <code>/.well-known/ai-catalog.json</code> may not be found, since consulting that path is optional for consumers — a publisher on the predecessor path SHOULD move to <code>ard.json</code>.</p>
+<h3 id="52-ingestion-pipelines">5.2 Ingestion Pipelines<a class="headerlink" href="#52-ingestion-pipelines" title="Permanent link">&para;</a></h3>
+<p>Agent Registry instances populate their indexes through ingestion pipelines:</p>
+<ul>
+<li><strong>Web Ingestion (Required)</strong>: Crawling entry sources — hosted manifests and in-page markup — from discovered URIs. All ARD implementations MUST support this.</li>
+<li><strong>Additional Pipelines (Optional)</strong>: Registries may support scanning git repositories, npm registries, or OCI registries as indicated by their configuration.</li>
+</ul>
+<h3 id="53-the-search-api">5.3 The Search API<a class="headerlink" href="#53-the-search-api" title="Permanent link">&para;</a></h3>
+<p>The search API is the dynamic half of discovery. An Agent Registry <strong>MUST</strong> expose a standard HTTP REST search interface to guarantee universal federation. The operational base URL for these endpoints is discovered dynamically by identifying entries whose <code>type</code> is <code>application/ai-registry+json</code>.</p>
+<h4 id="531-the-query-model">5.3.1 The Query Model<a class="headerlink" href="#531-the-query-model" title="Permanent link">&para;</a></h4>
+<p>The <code>POST /search</code> and <code>POST /explore</code> endpoints accept a common <code>query</code> object with three members: <code>@context</code>, <code>text</code>, and <code>filter</code>. Each endpoint defines its own additional parameters alongside <code>query</code> (see §5.3.2 and §5.3.3) and its own presence requirements for <code>text</code> and <code>filter</code>.</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"okf"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://openknowledgeformat.org/ns#"</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"find me a flight booking agent"</span><span class="p">,</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"application/a2a-agent-card+json"</span><span class="p">],</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">      </span><span class="nt">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"finance"</span><span class="p">],</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">      </span><span class="nt">"okf:taxonomy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"us-gaap"</span><span class="p">],</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">      </span><span class="nt">"trustManifest.attestations.type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"SOC2-Type2"</span><span class="p">]</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Field</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">@context</td>
+<td style="text-align: left;">Object/String</td>
+<td style="text-align: left;">Optional. Binds the prefixes used in <code>filter</code> keys, exactly as an entry's <code>@context</code> binds the terms it carries. Layered on the ARD base context (§4.1); absent, only the base context applies.</td>
+</tr>
+<tr>
+<td style="text-align: left;">text</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Natural-language description of the need. Narrows the result set by semantic relevance.</td>
+</tr>
+<tr>
+<td style="text-align: left;">filter</td>
+<td style="text-align: left;">Object</td>
+<td style="text-align: left;">Structured constraints. Keys are term paths; values are arrays (a bare scalar is accepted as a single-element array).</td>
+</tr>
+</tbody>
+</table>
+<p><code>text</code> and <code>filter</code> compose: an entry is in the matched set if it satisfies the relevance criteria for <code>text</code> (when present) AND every constraint in <code>filter</code> (when present).</p>
+<p><strong>Term resolution.</strong> A filter key that names a term is resolved to its IRI through the query's effective context — the ARD base context plus the query's <code>@context</code> — and matched against entries by that IRI, not by the literal key string. This is what makes namespaced filtering work across publishers: a client filtering on <code>okf:taxonomy</code> matches any entry whose author bound the same namespace, regardless of the prefix that author chose (<code>okf:</code>, <code>openknowledge:</code>, …), because both sides resolve to the same IRI. Core terms (<code>type</code>, <code>tags</code>, <code>capabilities</code>, <code>version</code>, …) resolve through the base context and need no <code>@context</code>.</p>
+<p><strong>Path segments into non-expanded members.</strong> ARD does not expand <code>trustManifest</code>, <code>metadata</code>, or inline <code>data</code> into the JSON-LD graph (§4.1); dot-paths <em>into</em> them (e.g. <code>trustManifest.attestations.type</code>, <code>metadata.location</code>) are literal JSON paths on the raw member, not IRI-resolved. The leading segment is still an IRI-resolved term; the remainder is a literal path. (Not expanding a member is a statement about the graph, not about inspection — registries verify <code>trustManifest</code> per §4.5.2.)</p>
+<p><strong>Filter Semantics</strong>: When the value at a resolved key or path is an array, a constraint matches if any element satisfies it. Within a single key, values are combined with OR; across keys, with AND.</p>
+<p><strong>Extensibility</strong>: Any term an entry carries MAY be used as a filter key with no specification change — core terms, non-expanded-member paths, and any namespaced term the query binds in <code>@context</code>. A registry that indexes a term makes it filterable.</p>
+<p>The <code>publisher</code> key is derived from the <code>&lt;publisher&gt;</code> segment of an entry's URN identifier (Appendix C), not a stored term; registries extract it.</p>
+<p><strong>Registry Support</strong>: Registries SHOULD support filtering on common standard terms; support for <code>metadata.*</code> and other extension terms is registry-defined. A registry MAY reject a filter that references an unsupported term path with a 400 error.</p>
+<h4 id="532-search-post-search">5.3.2 Search (POST /search)<a class="headerlink" href="#532-search-post-search" title="Permanent link">&para;</a></h4>
+<p>Accepts a <code>query</code> (§5.3.1) and returns entries ranked by relevance. For Search, <code>text</code> is required; <code>filter</code> is optional.</p>
+<p><strong>Request Schema:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"find me a flight booking agent"</span><span class="p">,</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"application/a2a-agent-card+json"</span><span class="p">]</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="nt">"federation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"referrals"</span><span class="p">,</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span><span class="nt">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>In addition to the <code>query</code> object (§5.3.1), Search accepts:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Field</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">federation</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Optional. auto (default), referrals, or none.</td>
+</tr>
+<tr>
+<td style="text-align: left;">pageSize</td>
+<td style="text-align: left;">Integer</td>
+<td style="text-align: left;">Optional (root-level). Max results to return per page (default: 10, max: 100).</td>
+</tr>
+<tr>
+<td style="text-align: left;">pageToken</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Optional (root-level). Pagination token to retrieve the next page.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response Schema:</strong></p>
+<p>The response returns entries with additional relevance scores, plus optional referrals. The <code>score</code> parameter denotes semantic relevance ranking (0–100) computed by the search registry, indicating how well the entry satisfies the natural language query. It is strictly an informational relevance metric and MUST NOT be interpreted by orchestrators as a cryptographic trust, compliance, or safety rating. Trust evaluation is fully decoupled and handled independently via the trust manifest (§4.5).</p>
+<p>In a response, an entry MUST carry <code>identifier</code>; every other term is at the registry's discretion. A registry returns what is useful for selecting among results and MAY omit the rest — <code>representativeQueries</code> in particular serve indexing rather than presentation and are normally omitted. A result is therefore not necessarily a complete ARD entry (§4.2); its <code>identifier</code> names the authoritative one. Note that <code>url</code>, where present, addresses the artifact (an Agent Card, Server Card, and so on) — not the ARD entry that describes it. A normative operation for retrieving a complete entry by <code>identifier</code> is out of scope for this draft; a client that needs the full entry obtains it from the source that published it.</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">      </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"urn:air:acme.com:agent:assistant"</span><span class="p">,</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">      </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Corporate Assistant (A2A)"</span><span class="p">,</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/a2a-agent-card+json"</span><span class="p">,</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.acme.com/agents/assistant.json"</span><span class="p">,</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">      </span><span class="nt">"score"</span><span class="p">:</span><span class="w"> </span><span class="mi">95</span><span class="p">,</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">      </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://registry.acme.com/api/v1/"</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">      </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"urn:air:example.com:weather-server"</span><span class="p">,</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">      </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Global Weather Service"</span><span class="p">,</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/mcp-server-card+json"</span><span class="p">,</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://weather.example.com/mcp"</span><span class="p">,</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">      </span><span class="nt">"capabilities"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"WeatherTool"</span><span class="p">],</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">      </span><span class="nt">"score"</span><span class="p">:</span><span class="w"> </span><span class="mi">88</span><span class="p">,</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">      </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://finder.external.org/api/"</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">  </span><span class="p">],</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="w">  </span><span class="nt">"referrals"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="w">      </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"urn:air:nlweb.ai:registry:public"</span><span class="p">,</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="w">      </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Public Agent Finder"</span><span class="p">,</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/ai-registry+json"</span><span class="p">,</span>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="w">      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://finder.nlweb.ai/search"</span>
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="w">  </span><span class="p">],</span>
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a><span class="w">  </span><span class="nt">"pageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJwYWdlIjogMn0="</span>
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="5321-query-processing-and-resolution-informative">5.3.2.1 Query Processing and Resolution (Informative)<a class="headerlink" href="#5321-query-processing-and-resolution-informative" title="Permanent link">&para;</a></h5>
+<p>While this specification mandates the REST interface for interoperability, implementations may employ advanced techniques to resolve natural language queries to specific agent endpoints. An example flow, drawing from research on Agent Naming Services (ANS) and Federated Registries, involves the following steps:</p>
+<ol>
+<li><strong>Semantic Translation &amp; Embedding</strong>:</li>
+<li><strong>LLM Query Interpretation</strong>: The Registry uses an LLM to extract specific multi-dimensional requirements from the natural language <code>text</code> field, translating it into structured capability attributes (e.g. domain: travel, skill: flight_booking, constraints: meal_preference).</li>
+<li><strong>Vector Embeddings</strong>: The Registry may also convert the query description into a dense vector embedding to understand semantic meaning (e.g. matching "foreign exchange" to "forex" or "international money transfer").</li>
+<li><strong>Global Discovery via Federated Routing</strong>:</li>
+<li>Advanced implementations may execute this query against a federated network. For example, using semantic attributes or embedding vectors to perform a search across a Distributed Hash Table (DHT) (e.g. an extended IPFS Kademlia DHT) or by leveraging DNS-AID to discover authoritative registries for specific domains.</li>
+<li>This maps the semantic capabilities to cryptographic digests or endpoints of agents that possess those skills across the federated network.</li>
+</ol>
+<h4 id="533-explore-post-explore-optional">5.3.3 Explore (POST /explore) — Optional<a class="headerlink" href="#533-explore-post-explore-optional" title="Permanent link">&para;</a></h4>
+<p>Accepts a <code>query</code> (§5.3.1) and returns an aggregation over the matched set rather than ranked entries. Explore lets clients introspect a registry — for example, "which artifact types are available?" — and obtain facet breakdowns narrowed by the same <code>text</code> and <code>filter</code> as Search. For Explore, <code>text</code> and <code>filter</code> are both optional; when both are absent, the aggregation covers the entire registry.</p>
+<p><strong>Request Schema:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"currency conversion"</span><span class="p">,</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">      </span><span class="nt">"trustManifest.attestations.type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"SOC2-Type2"</span><span class="p">]</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">  </span><span class="nt">"resultType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="nt">"facets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"type"</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"publisher"</span><span class="p">,</span><span class="w"> </span><span class="nt">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>In addition to the <code>query</code> object (§5.3.1), Explore accepts:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Field</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">resultType</td>
+<td style="text-align: left;">Object</td>
+<td style="text-align: left;">Required. The shape of result to compute. The only defined shape is facets (below); future shapes such as counts or sample extend this field without protocol changes.</td>
+</tr>
+</tbody>
+</table>
+<p>Each element of <code>resultType.facets</code>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Field</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">field</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Required. Term path to aggregate (same syntax as filter keys, §5.3.1).</td>
+</tr>
+<tr>
+<td style="text-align: left;">limit</td>
+<td style="text-align: left;">Integer</td>
+<td style="text-align: left;">Optional. Maximum number of buckets returned. Default: 20.</td>
+</tr>
+<tr>
+<td style="text-align: left;">minCount</td>
+<td style="text-align: left;">Integer</td>
+<td style="text-align: left;">Optional. Suppress buckets with counts below this threshold.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response Schema:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">"resultType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"facets"</span><span class="p">,</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">"facets"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">      </span><span class="nt">"buckets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/mcp-server-card+json"</span><span class="p">,</span><span class="w"> </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1247</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/a2a-agent-card+json"</span><span class="p">,</span><span class="w"> </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">389</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">      </span><span class="p">],</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">      </span><span class="nt">"otherCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="nt">"publisher"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">      </span><span class="nt">"buckets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acme.com"</span><span class="p">,</span><span class="w"> </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">412</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">      </span><span class="p">]</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Each bucket carries <code>value</code> and SHOULD carry <code>count</code> (the number of matching entries; a registry MAY omit it where counts cannot be computed efficiently). <code>otherCount</code> reports the number of matching entries in buckets beyond <code>limit</code>.</p>
+<p>Facets are computed over the full matched set, not a single page. For semantic text queries, the registry applies a relevance cutoff: entries whose relevance falls below the cutoff are excluded from the matched set. The cutoff is registry-defined, but within a single registry the same cutoff governs both Search results and Explore facets. The cutoff and the relevance score (§5.3.2) reflect relevance only and MUST NOT be interpreted as a trust, compliance, or safety judgment.</p>
+<p>Explore does not federate; it is scoped to the registry queried. Federated discovery is the role of Search (§5.3.2), via its federation modes (§5.4). A registry that does not implement Explore returns a <code>501 Not Implemented</code> HTTP status code.</p>
+<h4 id="534-list-get-agents-optional">5.3.4 List (GET /agents) — Optional<a class="headerlink" href="#534-list-get-agents-optional" title="Permanent link">&para;</a></h4>
+<p>Deterministic browsing, designed for developer portals. Highly cacheable, relies on strict database filtering, and does not support relevance-based sorting.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">filter</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">EBNF filter expression.</td>
+</tr>
+<tr>
+<td style="text-align: left;">orderBy</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Sorting fields (e.g. name, created_at DESC).</td>
+</tr>
+<tr>
+<td style="text-align: left;">pageSize</td>
+<td style="text-align: left;">Integer</td>
+<td style="text-align: left;">Max results (default: 20, max: 100).</td>
+</tr>
+<tr>
+<td style="text-align: left;">pageToken</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Pagination token.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="535-protocol-wrappers-optional">5.3.5 Protocol Wrappers (Optional)<a class="headerlink" href="#535-protocol-wrappers-optional" title="Permanent link">&para;</a></h4>
+<p>While the REST API is mandated as the floor for interoperability, a Registry <strong>MAY</strong> additionally expose its search capability natively via an MCP Tool or an A2A Skill to preserve native orchestrator flows.</p>
+<p>The return response from these protocol-specific wrappers <strong>MUST</strong> follow the same entry model as defined in this specification. However, the request format for these wrappers may differ slightly to accommodate protocol-specific conventions and is pending further definition.</p>
+<h3 id="54-federation">5.4 Federation<a class="headerlink" href="#54-federation" title="Permanent link">&para;</a></h3>
+<p>Because the REST API is mandated, Registry-to-Registry routing (federation) becomes a simple HTTP operation. The client controls federation through the federation query parameter:</p>
+<ul>
+<li><strong>auto</strong>: The Registry queries upstream registries automatically, merges their results with its own, and returns a unified response. The client gets a single merged result set.</li>
+<li><strong>referrals</strong>: The Registry returns its results plus entries for other Registries the client may query. The client decides which to follow.</li>
+<li><strong>none</strong>: The Registry searches only its own index.</li>
+</ul>
+<p>This gives the client full control over the federation topology without requiring complex protocol translation layers.</p>
+<h4 id="example-referrals-mode">Example: Referrals Mode<a class="headerlink" href="#example-referrals-mode" title="Permanent link">&para;</a></h4>
+<p><strong>Request:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"find me a flight booking agent"</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="nt">"federation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"referrals"</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Response:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">      </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"urn:air:acme.com:agent:expense"</span><span class="p">,</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">      </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Corporate Expenses"</span><span class="p">,</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/a2a-agent-card+json"</span><span class="p">,</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://internal.corp/agents/expense.json"</span><span class="p">,</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">      </span><span class="nt">"score"</span><span class="p">:</span><span class="w"> </span><span class="mi">97</span><span class="p">,</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">      </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://finder.internal.corp"</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">  </span><span class="p">],</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">  </span><span class="nt">"referrals"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">      </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"urn:air:nlweb.ai:registry:public"</span><span class="p">,</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">      </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Public Agent Finder"</span><span class="p">,</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/ai-registry+json"</span><span class="p">,</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w">      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://finder.nlweb.ai/search"</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="w">      </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"urn:air:example.com:registry:travel"</span><span class="p">,</span>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="w">      </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Travel Agent Finder"</span><span class="p">,</span>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/ai-registry+json"</span><span class="p">,</span>
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="w">      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://travel.finder.example/search"</span>
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a><span class="w">  </span><span class="p">]</span>
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a><span class="p">}</span>
+</span></code></pre></div>
+<h2 id="6-integration-example">6. Integration Example<a class="headerlink" href="#6-integration-example" title="Permanent link">&para;</a></h2>
+<p>A user asks an orchestrator: "Book me a flight to Tokyo and file the travel expense report."</p>
+<ol>
+<li>The orchestrator queries the enterprise Agent Registry with federation: "referrals".</li>
+<li>The Registry returns an internal expense agent, plus referrals to other Registries.</li>
+<li>The orchestrator follows a referral to a public Agent Registry and queries it for flight booking agents.</li>
+<li>The orchestrator now has both capabilities and can proceed to invoke them using their respective protocols (e.g. A2A for booking, MCP for expense filing).</li>
+</ol>
+<hr />
+<h2 id="appendix-a-filter-expression-syntax">Appendix A: Filter Expression Syntax<a class="headerlink" href="#appendix-a-filter-expression-syntax" title="Permanent link">&para;</a></h2>
+<p>The filter parameter in the List API (GET /agents) uses a simple EBNF-like format for structured constraints.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Filter Field</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">displayName</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Case-insensitive name filter.</td>
+</tr>
+<tr>
+<td style="text-align: left;">type</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Comma-separated media types (OR logic).</td>
+</tr>
+<tr>
+<td style="text-align: left;">publisherId</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Comma-separated publisher IDs (OR logic).</td>
+</tr>
+<tr>
+<td style="text-align: left;">createdAfter</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">ISO 8601 timestamp.</td>
+</tr>
+<tr>
+<td style="text-align: left;">updatedAfter</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">ISO 8601 timestamp.</td>
+</tr>
+</tbody>
+</table>
+<p>Logical AND is used across different parameters; OR is used within a single parameter with multiple values (comma-separated).</p>
+<h2 id="appendix-b-standard-error-codes">Appendix B: Standard Error Codes<a class="headerlink" href="#appendix-b-standard-error-codes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">HTTP Code</th>
+<th style="text-align: left;">Error Code</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">400</td>
+<td style="text-align: left;">INVALID_ARGUMENT</td>
+<td style="text-align: left;">Malformed query or invalid filter syntax.</td>
+</tr>
+<tr>
+<td style="text-align: left;">401</td>
+<td style="text-align: left;">UNAUTHENTICATED</td>
+<td style="text-align: left;">Invalid or missing credentials.</td>
+</tr>
+<tr>
+<td style="text-align: left;">404</td>
+<td style="text-align: left;">NOT_FOUND</td>
+<td style="text-align: left;">Non-existent agent or registry.</td>
+</tr>
+<tr>
+<td style="text-align: left;">429</td>
+<td style="text-align: left;">RATE_LIMIT_EXCEEDED</td>
+<td style="text-align: left;">Too many requests.</td>
+</tr>
+<tr>
+<td style="text-align: left;">500</td>
+<td style="text-align: left;">INTERNAL_ERROR</td>
+<td style="text-align: left;">Internal server failure.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="appendix-c:-agent-naming-urn-format">Appendix C: Agent Naming URN Format<a class="headerlink" href="#appendix-c:-agent-naming-urn-format" title="Permanent link">&para;</a></h2>
+<p>The discovery identifier uses a domain-anchored URN form, <code>urn:air:&lt;publisher&gt;:&lt;namespace&gt;:&lt;agent-name&gt;</code>, where <code>&lt;publisher&gt;</code> is a fully qualified domain name. Restricting the discovery identifier to this form, rather than allowing arbitrary URIs, provides fundamental architectural benefits for federated discovery:</p>
+<ol>
+<li><strong>Nomenclature Stability (Immutable Noun vs. Mutable Location)</strong>: Arbitrary URIs, particularly HTTP URLs, conflate the logical identity of a capability with its physical network location. The <code>urn:air:</code> identifier acts as an abstract, permanent contract; physical distribution and transport bindings are decoupled into the <code>url</code> or <code>data</code> term, allowing infrastructure to evolve without breaking client discovery, indexing, or orchestration code.</li>
+<li><strong>Strict Separation of Concerns</strong>: Federated registries require a stable primary key to index capabilities; zero-trust runtimes require dynamic cryptographic tokens (SPIFFE IDs, DIDs, X.509 certificates) to authenticate workloads. The <code>urn:air:</code> form cleanly decouples the searchable discovery handle from the security principal, allowing the discovery index and the security mesh to operate independently.</li>
+<li><strong>Decentralized Trust and Authority Binding</strong>: Mandating that <code>&lt;publisher&gt;</code> be a valid FQDN establishes a verifiable authority anchor. Registries extract the domain and cross-reference it with the cryptographic claim in <code>trustManifest.identity</code> (§4.5.1); a workload that cannot produce a valid attestation issued by that domain is rejected, without a centralized naming committee.</li>
+<li><strong>Search and Discovery Ergonomics (The @ Resolution Pattern)</strong>: The structured hierarchy lets registries parse publisher and terminal short name deterministically (e.g. <code>Assistant@Acme</code>), enabling high-performance semantic filtering, aggregation, and conflict resolution (e.g. displaying <code>Assistant</code> with a verified <code>Acme</code> shield).</li>
+<li><strong>Cross-Network Uniqueness and Federation Scalability</strong>: Domain-anchored URNs guarantee global uniqueness across federated registries without centralized registration, because domain names are already globally unique via the DNS root — eliminating collision risks when merging catalogs in auto or referrals federation modes.</li>
+</ol>
+<p>The JSON-LD <code>@id</code> of an entry MAY be set to the same identifier (or to an IRI that resolves to the resource); when both are present they MUST denote the same resource.</p>
+<h2 id="appendix-d-formal-schema-definitions">Appendix D: Formal Schema Definitions<a class="headerlink" href="#appendix-d-formal-schema-definitions" title="Permanent link">&para;</a></h2>
+<p>To support automated validation, testing, and machine-readable compliance checking, this specification defines its own entry schema.</p>
+<h3 id="d1-the-ard-entry-schema">D.1 The ARD Entry Schema<a class="headerlink" href="#d1-the-ard-entry-schema" title="Permanent link">&para;</a></h3>
+<p>The ARD entry — its required terms, the value-or-reference rule, and the <code>trustManifest</code> envelope — is formally defined in JSON Schema (Draft 2020-12). Because ARD defines the ARD entry (§4), this schema is authoritative for it and does not derive from any catalog schema; the two evolve independently.</p>
+<ul>
+<li><strong>Authoritative schema</strong>: <a href="https://github.com/ards-project/ard-spec/blob/main/spec/schemas/ard-entry.schema.json"><code>spec/schemas/ard-entry.schema.json</code></a> — defines <code>ArdEntry</code> and <code>ArdManifest</code> (the <code>/.well-known/ard.json</code> document, §5.1).</li>
+<li><strong>Base context</strong>: <a href="https://github.com/ards-project/ard-spec/blob/main/spec/schemas/ard.context.jsonld"><code>spec/schemas/ard.context.jsonld</code></a> — the initial expansion context of §4.1, served at <code>https://agenticresourcediscovery.org/context/v1</code>.</li>
+<li><strong>Structural grammar (CDDL, RFC 8610)</strong>: <a href="https://github.com/ards-project/ard-spec/blob/main/spec/schemas/ard.cddl"><code>spec/schemas/ard.cddl</code></a></li>
+</ul>
+<p>Note that the schema sets <code>additionalProperties: true</code> by design. Terms drawn from namespaces declared in an entry's <code>@context</code> (§4.1) are valid and become filter dimensions; a closed schema would defeat the extension mechanism. The <code>trustManifest</code> envelope is likewise open — ARD reads only <code>identity</code> (§4.5).</p>
+<p>To validate an entry with AJV CLI:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>npx<span class="w"> </span>ajv-cli<span class="w"> </span>validate<span class="w"> </span>-s<span class="w"> </span>spec/schemas/ard-entry.schema.json<span class="w"> </span>-d<span class="w"> </span>path/to/entry.json
+</span></code></pre></div></p>
+<h3 id="d2-ard-discovery-constraints">D.2 ARD Discovery Constraints<a class="headerlink" href="#d2-ard-discovery-constraints" title="Permanent link">&para;</a></h3>
+<p>Beyond structural validity, conformance checks the following:</p>
+<ul>
+<li><code>representativeQueries</code> is present and contains 2–5 examples (§4.2) — <strong>warning</strong>, not error: an entry that omits it or supplies a different count still validates structurally, but is flagged, since it will not be found by search.</li>
+<li>The URN publisher domain MUST align with <code>trustManifest.identity</code> (§4.5.1).</li>
+<li><code>capabilities</code> are treated as structured filter tokens (§5.3.1).</li>
+</ul>
+<h3 id="d3-the-registry-rest-api-specification-openapi">D.3 The Registry REST API Specification (OpenAPI)<a class="headerlink" href="#d3-the-registry-rest-api-specification-openapi" title="Permanent link">&para;</a></h3>
+<p>The HTTP query interfaces (<code>POST /search</code>, <code>POST /explore</code>, and <code>GET /agents</code>) exposed by compliant Agent Registries are formally defined using the <strong>OpenAPI 3.1.0 Specification</strong> in YAML.</p>
+<ul>
+<li><strong>Authoritative Specification File</strong>: <a href="https://github.com/ards-project/ard-spec/blob/main/spec/schemas/ard.openapi.yaml"><code>spec/schemas/ard.openapi.yaml</code></a></li>
+</ul>
+<h3 id="d4-official-conformance-testing-tool">D.4 Official Conformance Testing Tool<a class="headerlink" href="#d4-official-conformance-testing-tool" title="Permanent link">&para;</a></h3>
+<p>To simplify development and guarantee compliance, this repository provides an official, zero-dependency <strong>Conformance Testing CLI Tool</strong>. It allows publishers to test their entries and registry developers to validate their REST API servers.</p>
+<ul>
+<li><strong>Testing Tool Executable</strong>: <a href="https://github.com/ards-project/ard-spec/blob/main/conformance/bin/conformance-test"><code>conformance/bin/conformance-test</code></a></li>
+</ul>
+<h4 id="features">Features:<a class="headerlink" href="#features" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Manifest validation mode</strong>: Parses a JSON manifest, validates it against <code>ArdManifest</code> and each of its entries against <code>ArdEntry</code> (§D.1), and executes ARD's discovery constraints (§D.2) — URN formatting, value-or-reference enforcement, <code>representativeQueries</code> presence and sizing.</li>
+<li><strong>Publisher resolution mode</strong>: Given a domain, performs the resolution of §5.1 — fetches <code>/.well-known/ard.json</code>, falls back to the predecessor path with a warning that consumers are not required to consult it, and validates whatever it resolves.</li>
+<li><strong>Registry validation mode</strong>: Probes live endpoints (<code>POST /search</code> and <code>GET /agents</code>), sends spec-compliant search requests, and validates status codes, pagination envelopes, relevance scores, and returned entries (§5.3.2).</li>
+</ul>
+<h2 id="acknowledgements">Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permanent link">&para;</a></h2>
+<p>The authors thank the following people for their contributions and feedback, in alphabetical order.</p>
+<ul>
+<li>Amazon Web Services — Jeffrey Damick, Martin Ristov</li>
+<li>Cisco — Guillaume De Saint Marc, Karen Jaworski, Luca Muscariello, Ramiz Polic, Vijoy Pandey</li>
+<li>Databricks — Jonathan Keller, Vinod Marur</li>
+<li>GitHub — Evan Boyle, Jeremy Moseley, Meagan Cojocar, Trent Jones</li>
+<li>GoDaddy — Scott Courtney</li>
+<li>Google — Alan Blount, Antonio Gulli, Ines David, John Murray, Krishna Thota, Natasha Balasubramanian, Polong Lin, Rao Surapaneni, Sam Sharaf, Sampath Kumar Maddula, Srinivas Krishnan, Todd Segal</li>
+<li>Microsoft — Adam Zukor, Chelsea Carter, Dee Templeton, Jennifer Marsman, Kevin Scott, Lindsey Li, Lisa Jaloza, Miesha Baker, Ryan Nadel, Shelby Delano</li>
+<li>Nvidia — Aysen Ilkhabar</li>
+<li>Salesforce — Mariano Gonzales, Vijay Pandiarajan</li>
+<li>Snowflake — Baris Gultekin, Vivek Raghunathan</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Apache License, Version 2.0.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.code.select", "content.tooltips", "navigation.indexes", "navigation.path", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

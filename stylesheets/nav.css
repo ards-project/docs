@@ -1,0 +1,69 @@
+/* Persistent left navigation — lower Material's 76.25em sidebar breakpoint to 37.5em
+   so the primary nav stays in-place on normal windows and only collapses into the
+   hamburger drawer on phones / very narrow viewports (<600px). Reverts Material's
+   mobile (max-width:76.234375em) sidebar+nav overrides and re-applies its desktop rules. */
+
+/* Left-nav panel background — tweak these two values to change the colour. */
+:root { --ards-nav-bg: #e2e8f0; }
+[data-md-color-scheme="slate"] { --ards-nav-bg: #111827; }
+
+@media screen and (min-width:37.5em){
+/* keep pages with `hide: navigation` actually hidden (mobile rule force-shows it) */
+.md-sidebar--primary[hidden]{display:none}
+/* revert mobile fixed slide-in drawer -> desktop sticky in-flow sidebar */
+.md-sidebar--primary:not([hidden]){position:sticky;top:2.4rem;left:auto;width:12.1rem;height:auto;padding:0;transform:none;background-color:transparent;box-shadow:none;z-index:1}
+/* panel background on inner wrapper so it grows with full nav content */
+.md-sidebar--primary .md-sidebar__inner{background-color:var(--ards-nav-bg);border-radius:8px;padding:1.2rem .6rem}
+/* beat Material's height:100% (mobile drawer) and height:0 (desktop shell) */
+.md-sidebar.md-sidebar--primary:not([hidden]){height:auto!important;max-height:none!important;min-height:fit-content}
+.md-sidebar--primary .md-sidebar__scrollwrap{position:static;overflow:visible;inset:auto;margin:0;scroll-snap-type:none;height:auto!important;max-height:none!important}
+.md-sidebar--primary .md-sidebar__inner{height:auto!important;max-height:none!important}
+/* revert mobile absolute overlay nav -> in-flow list */
+.md-nav--primary,.md-nav--primary .md-nav{position:static;height:auto;display:block}
+/* make the whole panel interior transparent so the grey shows through everywhere —
+   scoped under .md-sidebar--primary to outrank Material's mobile background rules */
+.md-sidebar--primary .md-sidebar__scrollwrap,
+.md-sidebar--primary .md-nav--primary,
+.md-sidebar--primary .md-nav--primary .md-nav,
+.md-sidebar--primary .md-nav--primary .md-nav__title~.md-nav__list{background-color:transparent;box-shadow:none}
+/* hide the mobile drawer header row (logo / back-arrow / title) */
+.md-nav--primary>.md-nav__title{display:none}
+/* drop mobile row borders + oversized link padding */
+.md-nav--primary .md-nav__item{border-top:none}
+
+/* --- Material desktop (min-width:76.25em) nav rules, re-applied at 48em --- */
+[dir=ltr] .md-sidebar--primary:not([hidden])~.md-content>.md-content__inner{margin-left:1.2rem}[dir=ltr] .md-sidebar--secondary:not([hidden])~.md-content>.md-content__inner,[dir=rtl] .md-sidebar--primary:not([hidden])~.md-content>.md-content__inner{margin-right:1.2rem}.md-header__button[for=__drawer]{display:none}.md-nav{margin-bottom:-.4rem;transition:max-height .25s cubic-bezier(.86,0,.07,1)}.md-nav--primary .md-nav__title{background:var(--md-default-bg-color);box-shadow:0 0 .4rem .4rem var(--md-default-bg-color);position:sticky;top:0;z-index:1}.md-nav--primary .md-nav__title[for=__drawer]{scroll-snap-align:start}.md-nav--primary .md-nav__title .md-nav__icon{display:none}[dir=ltr] .md-nav--primary .md-nav__list{padding-left:.6rem}[dir=rtl] .md-nav--primary .md-nav__list{padding-right:.6rem}.md-nav--primary .md-nav__list{padding-bottom:.4rem}[dir=ltr] .md-nav--primary .md-nav__item>.md-nav__link{margin-right:.4rem}[dir=rtl] .md-nav--primary .md-nav__item>.md-nav__link{margin-left:.4rem}.md-nav__toggle~.md-nav{display:grid;grid-template-rows:minmax(.4rem,0fr);opacity:0;transition:grid-template-rows .25s cubic-bezier(.86,0,.07,1),opacity .25s,visibility 0ms .25s;visibility:collapse}.md-nav__toggle~.md-nav>.md-nav__list{overflow:hidden}.md-nav__toggle.md-toggle--indeterminate~.md-nav,.md-nav__toggle:checked~.md-nav{grid-template-rows:minmax(.4rem,1fr);opacity:1;transition:grid-template-rows .25s cubic-bezier(.86,0,.07,1),opacity .15s .1s,visibility 0ms;visibility:visible}.md-nav__toggle.md-toggle--indeterminate~.md-nav{transition:none}.md-nav__item--nested>.md-nav>.md-nav__title{display:none}.md-nav__item--section{display:block;margin:1.25em 0}.md-nav__item--section:last-child{margin-bottom:0}.md-nav__item--section>.md-nav__link{font-weight:700}.md-nav__item--section>.md-nav__link[for]{color:var(--md-default-fg-color--light)}.md-nav__item--section>.md-nav__link:not(.md-nav__container){pointer-events:none}.md-nav__item--section>.md-nav__link .md-icon,.md-nav__item--section>.md-nav__link>[for]{display:none}[dir=ltr] .md-nav__item--section>.md-nav{margin-left:-.6rem}[dir=rtl] .md-nav__item--section>.md-nav{margin-right:-.6rem}.md-nav__item--section>.md-nav{display:block;opacity:1;visibility:visible}.md-nav__item--section>.md-nav>.md-nav__list>.md-nav__item{padding:0}.md-nav__icon{border-radius:100%;height:.9rem;transition:background-color .25s;width:.9rem}.md-nav__icon:hover{background-color:var(--md-accent-fg-color--transparent)}.md-nav__icon:after{background-color:currentcolor;border-radius:100%;content:"";display:inline-block;height:100%;-webkit-mask-image:var(--md-nav-icon--next);mask-image:var(--md-nav-icon--next);-webkit-mask-position:center;mask-position:center;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:contain;mask-size:contain;transition:transform .25s;vertical-align:-.1rem;width:100%}[dir=rtl] .md-nav__icon:after{transform:rotate(180deg)}.md-nav__item--nested .md-nav__toggle:checked~.md-nav__link .md-nav__icon:after,.md-nav__item--nested .md-toggle--indeterminate~.md-nav__link .md-nav__icon:after{transform:rotate(90deg)}.md-nav--lifted>.md-nav__list>.md-nav__item,.md-nav--lifted>.md-nav__title{display:none}.md-nav--lifted>.md-nav__list>.md-nav__item--active{display:block}.md-nav--lifted>.md-nav__list>.md-nav__item--active>.md-nav__link{background:var(--md-default-bg-color);box-shadow:0 0 .4rem .4rem var(--md-default-bg-color);margin-top:0;position:sticky;top:0;z-index:1}.md-nav--lifted>.md-nav__list>.md-nav__item--active>.md-nav__link:not(.md-nav__container){pointer-events:none}.md-nav--lifted>.md-nav__list>.md-nav__item--active.md-nav__item--section{margin:0}[dir=ltr] .md-nav--lifted>.md-nav__list>.md-nav__item>.md-nav:not(.md-nav--secondary){margin-left:-.6rem}[dir=rtl] .md-nav--lifted>.md-nav__list>.md-nav__item>.md-nav:not(.md-nav--secondary){margin-right:-.6rem}.md-nav--lifted>.md-nav__list>.md-nav__item>[for]{color:var(--md-default-fg-color--light)}.md-nav--lifted .md-nav[data-md-level="1"]{grid-template-rows:minmax(.4rem,1fr);opacity:1;visibility:visible}[dir=ltr] .md-nav--integrated>.md-nav__list>.md-nav__item--active .md-nav--secondary{border-left:.05rem solid var(--md-primary-fg-color)}[dir=rtl] .md-nav--integrated>.md-nav__list>.md-nav__item--active .md-nav--secondary{border-right:.05rem solid var(--md-primary-fg-color)}.md-nav--integrated>.md-nav__list>.md-nav__item--active .md-nav--secondary{display:block;margin-bottom:1.25em;opacity:1;visibility:visible}.md-nav--integrated>.md-nav__list>.md-nav__item--active .md-nav--secondary>.md-nav__list{overflow:visible;padding-bottom:0}.md-nav--integrated>.md-nav__list>.md-nav__item--active .md-nav--secondary>.md-nav__title{display:none}
+
+/* Always-expand the (shallow) section tree in this range and clear the leaked
+   mobile `transform:translateX(100%)` / opacity that otherwise hides inactive
+   sections' children while still reserving their vertical space. */
+/* Top-level section trees (About, Guides, Specifications) always stay open. */
+.md-nav--primary .md-nav__item--section>.md-nav{
+  display:block;opacity:1;visibility:visible;transform:none;
+  grid-template-rows:minmax(0,1fr);
+}
+/* Nested sub-sections (e.g. "Connect a chatbot") follow their toggle: expanded
+   only on the active path — the toggle is server-checked for the current page —
+   and collapsed with no reserved vertical space elsewhere. Clear the leaked
+   mobile slide-out transform so the expanded sub-nav isn't pushed off-canvas. */
+.md-nav--primary .md-nav__item--nested:not(.md-nav__item--section)>.md-nav{transform:none}
+.md-nav--primary .md-nav__item--nested:not(.md-nav__item--section)>.md-nav__toggle:checked~.md-nav{
+  display:grid;opacity:1;visibility:visible;grid-template-rows:minmax(0,1fr);
+}
+.md-nav--primary .md-nav__item--nested:not(.md-nav__item--section)>.md-nav__toggle:not(:checked)~.md-nav{
+  grid-template-rows:minmax(0,0fr);opacity:0;visibility:collapse;
+}
+
+/* Below Material's 60em breakpoint, the current page's table of contents is
+   *integrated* into the primary nav: the active item grows a toggle <label>
+   with a hamburger icon plus a nested .md-nav--secondary. In our persistent
+   sidebar that leaks as a stray hamburger next to the active page and a large
+   vertical gap. Suppress the integrated TOC and its toggle here (the TOC still
+   shows as the right-hand sidebar once there's room for it). */
+/* Keep the active page's label, but drop the integrated-TOC hamburger icon on it. */
+.md-sidebar--primary .md-nav__item--active>.md-nav__link .md-nav__icon{display:none}
+/* !important: outranks the re-emitted `.md-nav--integrated ... .md-nav--secondary`
+   desktop rule that would otherwise keep the integrated TOC (and its gap) visible.
+   Scoped to the primary sidebar, so the right-hand TOC sidebar is unaffected. */
+.md-sidebar--primary .md-nav--secondary{display:none!important}
+}
