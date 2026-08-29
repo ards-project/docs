@@ -107,6 +107,45 @@ curl -sS https://ora.ai/api/ard/attestation/resend.com \
 
 Ora is also reachable as an MCP server at `https://ora.ai/api/mcp` (streamable HTTP); its `discover_products`, `get_score`, and `search_capabilities` tools query the same index.
 
+## Desvela ARD Registry
+
+The [Desvela ARD Registry](https://registry.desvela.dev) is a neutral registry over the open web, not tied to a single vendor ecosystem. Instead of indexing a platform's own resources, it crawls the Tranco top-100K for the surfaces a visiting agent can actually read — `/.well-known/ard.json`, its predecessor `/.well-known/ai-catalog.json`, `/llms.txt`, `/agents.md`, `/.well-known/agent-card.json`, `/.well-known/mcp.json`, and the AI-bot directives in `/robots.txt` — refreshed weekly, so it surfaces publishers outside any single ecosystem. The crawl methodology and monthly findings are public at [desvela.ai/census](https://desvela.ai/census/).
+
+Desvela's own manifest at [`desvela.dev/.well-known/ard.json`](https://desvela.dev/.well-known/ard.json) describes its resources, including the registry itself, and the site emits `<link rel="ard">`.
+
+Both manifest paths are crawled and counted separately rather than one replacing the other. The census is a month-over-month series, and swapping the column when the spec moved its canonical path would have shown a collapse in ARD adoption that belonged to the instrument, not to the web — the count of publishers is still small enough for that to matter. Each surface carries the date it entered the census, so a zero before that date reads as *not measured* rather than *nobody published*.
+
+### Search and explore
+
+```bash
+# Find resources for a task
+curl -sS -X POST https://registry.desvela.dev/search \
+  -H 'content-type: application/json' \
+  -d '{"query":{"text":"brand monitoring"},"pageSize":5}' \
+  | jq -r '.results[] | "\(.displayName)\t\(.url)"'
+
+# Facet counts across the index (ARD spec §7.3)
+curl -sS -X POST https://registry.desvela.dev/explore \
+  -H 'content-type: application/json' \
+  -d '{"resultType":{"facets":[{"field":"type"}]}}' \
+  | jq '.facets'
+```
+
+### Preflight before calling a domain
+
+A free MCP tool checks what a domain publishes for agents before you fetch anything from it:
+
+```bash
+curl -sS https://registry.desvela.dev/mcp \
+  -H 'content-type: application/json' \
+  -H 'accept: application/json, text/event-stream' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"preflight","arguments":{"domain":"example.com"}}}'
+```
+
+### MCP
+
+Remote MCP server at `https://registry.desvela.dev/mcp` (Streamable HTTP), exposing `preflight(domain)` and `watch(domain, webhook_url)` — the latter delivers an HMAC-signed webhook when a domain's agent-facing surfaces change.
+
 ## ANS Finder
 
 The [ANS Finder](https://github.com/agentnameservice/ans) is the discovery service of the open-source **Agent Name Service (ANS)** reference implementation — a registration authority, transparency log, and offline verifier in Go, based on the ANS IETF draft. The Finder tails the registry's lifecycle event feed, projects every ANS-registered agent into a search index, and serves the ARD Registry REST interface: `POST /v1/search` and `POST /v1/explore` (ARDS v0.9). What sets it apart is verifiable registration: every catalog entry's `trustManifest.attestations[]` carries an `ANS-Registration` attestation whose URI resolves to a SCITT COSE receipt on the ANS Transparency Log, so a client can cryptographically verify an agent's registration — independently of the Finder — before invoking it. It validates against this project's [conformance suite](https://github.com/ards-project/ard-spec/tree/main/conformance) (registry mode).
