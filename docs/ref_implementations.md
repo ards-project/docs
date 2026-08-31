@@ -185,3 +185,40 @@ curl -sS -X GET "https://your-registry.example.com/api/ard/agents?orderBy=identi
 ```
 
 Results are ARD `catalogEntry`s plus a `score` (integer 0–100) and `source`. Errors use the ARD `{errorCode, message}` envelope. Federation ingests other registries' `ai-catalog.json` catalogs into a unified local index, selectable per request via the `federation` parameter (`none` / `auto` / `referrals`).
+
+## Neuronto
+
+[Neuronto](https://neuronto.com) is a hosted federated registry and publisher at `https://neuronto.com`, [open source](https://github.com/neuronto/agentic-resource-discovery) under Apache-2.0. It implements `federation: auto` as live fan-out: one query is answered from its own index and, concurrently, from the other public ARD registries, with the orderings fused by reciprocal rank fusion and per-upstream status reported in the response. It validates against this project's [conformance suite](https://github.com/ards-project/ard-spec/tree/main/conformance) in both registry and publisher modes. Beyond the entry level, it introspects the MCP servers it indexes, reading each server's own `tools/list`, and serves that verified tool surface (31,000+ tools) as a searchable layer, with reachability and auth requirements recorded per endpoint.
+
+### Search the federation
+
+```bash
+# One query across this index and every public ARD registry, fused
+curl -sS -X POST https://neuronto.com/search \
+  -H 'content-type: application/json' \
+  -d '{"query":{"text":"extract text from a pdf"},"federation":"auto","pageSize":5}' \
+  | jq -r '.results[] | "\(.displayName)\t\(.score)\t\(.source)"'
+
+# Browse: GET /agents and POST /explore implement the full contract
+curl -sS 'https://neuronto.com/agents?pageSize=5' | jq -r '.items[].identifier'
+```
+
+### Search verified tools
+
+```bash
+# Individual MCP tools, read from each live server's own tools/list
+curl -sS 'https://neuronto.com/tools?q=send+an+email&limit=5' \
+  | jq -r '.results[] | "\(.tool)\t\(.server)"'
+```
+
+### MCP
+
+Also reachable as an MCP server at `https://neuronto.com/mcp` (streamable HTTP, no key); its `find_resource`, `find_tool` and `registry_stats` tools query the same index. Its publisher manifest is at [`neuronto.com/.well-known/ard.json`](https://neuronto.com/.well-known/ard.json).
+
+### Check conformance
+
+```bash
+git clone https://github.com/ards-project/ard-spec
+ard-spec/conformance/bin/conformance-test registry  https://neuronto.com
+ard-spec/conformance/bin/conformance-test manifest https://neuronto.com/.well-known/ard.json
+```
