@@ -185,3 +185,49 @@ curl -sS -X GET "https://your-registry.example.com/api/ard/agents?orderBy=identi
 ```
 
 Results are ARD `catalogEntry`s plus a `score` (integer 0–100) and `source`. Errors use the ARD `{errorCode, message}` envelope. Federation ingests other registries' `ai-catalog.json` catalogs into a unified local index, selectable per request via the `federation` parameter (`none` / `auto` / `referrals`).
+
+## Nevermined
+
+[Nevermined](https://nevermined.app) is an ARD publisher and the **payment layer** for agentic discovery. Most discovery answers *"what can do this task?"*; Nevermined also answers *"what will it cost, and how do I pay it?"* — every catalog entry names its payment protocol, per-call price, and settlement network, and its Router lets an agent actually **pay** for what it discovers (x402 and MPP, across chains, under a spend cap) without leaving the discovery flow.
+
+Nevermined's publisher manifest at [`api.live.nevermined.app/.well-known/ard.json`](https://api.live.nevermined.app/.well-known/ard.json) is the curated Agent Services Catalog — external x402 / MPP / REST / A2A services, each entry pointing at its callable endpoint. Payment and discovery data ride in JSON-LD extension terms (`@context` + `nvm:catalog` for external services, `nvm:payment` for Nevermined-hosted plans), so a registry can index price, protocol, and network as filter dimensions rather than parsing free-form metadata. Every entry's `trustManifest.identity` is domain-anchored to the publisher.
+
+### 1. Pull the catalog manifest
+
+```bash
+curl -sS https://api.live.nevermined.app/.well-known/ard.json | jq '.entries | length'
+```
+
+### 2. Discover services and their pay-per-call terms
+
+```bash
+curl -sS https://api.live.nevermined.app/.well-known/ard.json \
+  | jq -r '.entries[]
+      | [.displayName, .["nvm:catalog"].protocol, .["nvm:catalog"].priceLabel, .["nvm:catalog"].network]
+      | @tsv'
+```
+
+Each entry's `nvm:catalog` carries the payment `protocol` (`x402` / `mpp`), the per-call `priceLabel`, the settlement `network`, the callable `targetUrl`, and per-endpoint pricing — everything an agent needs to decide whether and how to pay *before* it calls.
+
+### 3. Read a Nevermined-hosted agent's pre-signable x402 terms
+
+Nevermined-hosted agents are published per organization, where each paid plan exposes an x402 `accepts` block under `nvm:payment` that a client can pre-sign for the plan's own chain:
+
+```bash
+curl -sS https://api.live.nevermined.app/api/v1/organizations/<orgId>/ai-catalog.json \
+  | jq '.entries[0]["nvm:payment"].plans[0].accepts[0]'
+```
+
+### 4. Verify publisher identity
+
+```bash
+curl -sS https://api.live.nevermined.app/.well-known/ard.json | jq '{host, trust: .entries[0].trustManifest}'
+```
+
+### Check conformance
+
+```bash
+git clone https://github.com/ards-project/ard-spec
+pip install jsonschema
+ard-spec/conformance/bin/conformance-test manifest https://api.live.nevermined.app/.well-known/ard.json
+```
